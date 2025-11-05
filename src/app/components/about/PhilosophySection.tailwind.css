@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer components {
+  .philosophy-section {
+    @apply max-w-4xl mx-auto px-4 py-16 space-y-6;
+  }
+
+  .philosophy-section p {
+    @apply text-gray-200 leading-relaxed;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold mb-6;
+    color: var(--color-primary);
+  }
+}

@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer components {
+  .hero-section {
+    @apply text-center py-24 px-4 rounded-lg relative overflow-hidden;
+    background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
+  }
+
+  .hero-title {
+    @apply text-5xl md:text-6xl font-bold mb-4;
+    color: var(--color-primary);
+    font-family: var(--font-titles);
+  }
+
+  .hero-subtitle {
+    @apply text-lg md:text-xl text-gray-300;
+    font-family: var(--font-body);
+  }
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer components {
+  .timeline-section {
+    @apply relative;
+  }
+
+  .timeline-item {
+    @apply relative;
+  }
+
+  .timeline-card-wrapper {
+    @apply max-w-sm w-full;
+  }
+}

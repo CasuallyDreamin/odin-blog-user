@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* Fullscreen terminal container */
+.boot-container {
+  @apply fixed inset-0 bg-black flex items-center justify-center z-[9999] font-mono;
+  font-family: var(--font-mono);
+  color: #00ff00; /* classic green terminal color */
+  overflow: hidden;
+}
+
+/* Terminal text */
+.boot-terminal {
+  @apply text-left text-sm sm:text-base px-6;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* Blinking cursor */
+.boot-cursor {
+  display: inline-block;
+  width: 1ch;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}

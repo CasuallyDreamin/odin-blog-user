@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer components {
+  .skills-section {
+    @apply max-w-5xl mx-auto px-4 py-16 space-y-8;
+  }
+
+  .skills-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold mb-6;
+    color: var(--color-primary);
+  }
+}

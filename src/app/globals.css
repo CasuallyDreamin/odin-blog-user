@@ -5,6 +5,11 @@
 
 @theme {
   --color-primary: oklch(0.8 0.18 190);
+  --color-bg: oklch(0.15 0.02 260);
+  --color-surface: oklch(0.22 0.02 260);
+  --color-border: oklch(0.4 0.02 260);
+  --color-text-muted: oklch(0.7 0.02 260);
+  
   --font-header: 'Rock Salt', sans-serif;
   --font-titles: 'Orbitron', sans-serif;
   --font-body: "Rajdhani", sans-serif;

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .interest-card {
+    @apply p-4 bg-neutral-800 rounded-lg text-center font-semibold text-gray-200 shadow-sm hover:shadow-md transition;
+  }
+}

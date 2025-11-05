@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .back-button {
+    @apply mb-6 px-4 py-2 bg-neutral-900 text-white rounded hover:bg-neutral-600 transition;
+  }
+}

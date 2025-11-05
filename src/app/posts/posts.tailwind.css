@@ -1,0 +1,9 @@
+@import "../globals.css";
+
+.posts-page-container {
+  @apply flex flex-col items-center;
+}
+
+.posts-grid {
+  @apply w-full;
+}

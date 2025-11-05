@@ -11,7 +11,6 @@ module.exports = {
     );
 
     if (cssModuleRule) {
-      // Ensure PostCSS loader is applied
       cssModuleRule.use.push({
         loader: require.resolve('postcss-loader'),
         options: {

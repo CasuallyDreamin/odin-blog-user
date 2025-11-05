@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer components {
+  .journey-section {
+    @apply max-w-4xl mx-auto px-4 py-16 space-y-12;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-semibold mb-8;
+    color: var(--color-primary);
+  }
+
+  .timeline {
+    @apply space-y-8;
+  }
+
+  .milestone {
+    @apply bg-neutral-900 p-6 rounded-lg shadow-md;
+  }
+
+  .milestone-title {
+    @apply text-2xl font-bold mb-2;
+    color: var(--color-primary);
+  }
+
+  .milestone-year {
+    @apply text-gray-400 text-sm ml-2;
+  }
+
+  .milestone-desc {
+    @apply text-gray-200 leading-relaxed;
+  }
+}
