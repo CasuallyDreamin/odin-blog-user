@@ -1,5 +1,5 @@
 'use client';
-import "../../styles/components/comments.tailwind.css";
+import "../../../styles/components/comments.tailwind.css";
 
 export default function CommentForm({ formData, setFormData, handleSubmit }) {
   const handleChange = (e) =>

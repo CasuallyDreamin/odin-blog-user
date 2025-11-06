@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import '../../styles/components/comments.tailwind.css';
+import '../../../styles/components/comments.tailwind.css';
 
 export default function CommentList({ comments }) {
   return (

@@ -18,39 +18,47 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
 
+  // --- Fetch logic separated for reuse ---
+  const fetchData = async () => {
+    try {
+      const resPosts = await api.get('/posts');
+      const publishedPosts = (resPosts.data.posts || []).filter(p => p.published);
+
+      setPinnedPost(publishedPosts.find(p => p.layout?.pinned) || null);
+      setPosts(publishedPosts.filter(p => !p.layout?.pinned));
+
+      const resSettings = await api.get('/settings');
+      setQuote(resSettings.data.quote || '');
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load homepage data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const hasSeenIntro = sessionStorage.getItem('seenIntro');
     setShowIntro(!hasSeenIntro);
 
-    async function fetchData() {
-      try {
-        const resPosts = await api.get('/posts');
-        const publishedPosts = (resPosts.data.posts || []).filter(p => p.published);
-
-        setPinnedPost(publishedPosts.find(p => p.layout?.pinned) || null);
-        setPosts(publishedPosts.filter(p => !p.layout?.pinned));
-        
-        const resSettings = await api.get('/settings');
-        setQuote(resSettings.data.quote || '');
-      } catch (err) {
-        console.error(err);
-        setError('Failed to load homepage data.');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
+    // only fetch data if intro already seen
+    if (hasSeenIntro) fetchData();
   }, []);
+
+  const handleIntroComplete = async () => {
+    sessionStorage.setItem('seenIntro', 'true');
+    setShowIntro(false);
+    await fetchData(); // fetch right after intro completes
+  };
 
   const handlePostClick = (id) => router.push(`/posts/${id}`);
 
+  if (showIntro) {
+    return <IntroSequence onComplete={handleIntroComplete} />;
+  }
+
   if (loading) return <div className="loading"></div>;
   if (error) return <div className="error">{error}</div>;
-
-  if (showIntro) {
-    return <IntroSequence onComplete={() => sessionStorage.setItem('seenIntro', 'true')} />;
-  }
 
   return (
     <div className="homepage-container">

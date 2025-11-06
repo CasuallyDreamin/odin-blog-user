@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import '../../styles/components/article.tailwind.css';
+import '../../../styles/components/article.tailwind.css';
 
 export default function Article({ post }) {
   if (!post) return null;

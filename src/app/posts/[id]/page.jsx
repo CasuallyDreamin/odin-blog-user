@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import api from '../../../lib/api';
-import Article from '../../components/Article';
-import CommentForm from '../../components/CommentForm';
-import CommentList from '../../components/CommentList';
+import Article from '../../components/posts/Article';
+import CommentForm from '../../components/posts/CommentForm';
+import CommentList from '../../components/posts/CommentList';
 import '../../../styles/pages/postpage.tailwind.css';
 
 export default function PostPage() {
