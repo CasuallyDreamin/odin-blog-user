@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer components {
+  .project-card {
+    @apply bg-neutral-900 p-6 rounded-lg shadow-md hover:shadow-lg transition flex flex-col gap-3;
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .project-image {
+    @apply w-full h-48 object-cover rounded-md mb-4;
+  }
+
+  .project-title {
+    @apply text-2xl font-bold;
+    color: var(--color-primary);
+  }
+
+  .project-description {
+    @apply text-gray-200;
+  }
+
+  .tech-stack {
+    @apply flex flex-wrap gap-2 mt-2;
+  }
+
+  .tech-item {
+    @apply bg-neutral-800 text-gray-200 px-2 py-1 rounded text-sm;
+  }
+
+  .project-link {
+    @apply mt-2 text-cyan-400 hover:text-cyan-500 underline;
+  }
+}

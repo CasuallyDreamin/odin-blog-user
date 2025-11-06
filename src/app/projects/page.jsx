@@ -1,13 +1,36 @@
 'use client';
 
-import SectionHeader from '../components/SectionHeader';
+import RouteTransition from '../components/RouteTransition';
+import HeroSection from '../components/projects/HeroSection';
+import ProjectsGrid from '../components/projects/ProjectsGrid';
 
 export default function ProjectsPage() {
+  const projects = [
+    {
+      title: 'Sintopia Blog',
+      description: 'A personal dev blog with interactive features and animations.',
+      techStack: ['Next.js', 'TailwindCSS', 'Framer Motion'],
+      link: '#',
+    },
+    {
+      title: 'Neural Net Visualizer',
+      description: 'Visualizing deep learning networks in real time.',
+      techStack: ['React', 'Three.js', 'TensorFlow.js'],
+      link: '#',
+    },
+    {
+      title: 'FPGA Display Project',
+      description: 'Low-level hardware logic for a 4-digit 7-segment display.',
+      techStack: ['Verilog', 'Vivado'],
+      link: '#',
+    },
+    // add more projects here
+  ];
+
   return (
-    <div className="homepage-container">
-      <SectionHeader title="Projects" />
-      <p className="post-preview">Placeholder for your projects showcase.</p>
-      <a href="/posts" className="submit-button mt-4 inline-block">See Blog Posts</a>
-    </div>
+    <RouteTransition>
+      <HeroSection />
+      <ProjectsGrid projects={projects} />
+    </RouteTransition>
   );
 }
