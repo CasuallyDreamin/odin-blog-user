@@ -10,7 +10,7 @@
   --color-border: oklch(0.4 0.02 260);
   --color-text-muted: oklch(0.7 0.02 260);
   
-  --font-header: 'Rock Salt', sans-serif;
+  --font-header: 'Tron', sans-serif;
   --font-titles: 'Orbitron', sans-serif;
   --font-body: "Rajdhani", sans-serif;
   --breakpoint-xl: 64rem;
@@ -22,8 +22,6 @@ html, body {
   @apply bg-neutral-950 text-neutral-100;
 }
 
-.hero-title,
-.glitch-header,
 .section-title,
 .post-title, 
 .article-title,
@@ -38,4 +36,11 @@ label{
 .hero-subtitle {
   font-family: var(--font-body);
   letter-spacing: 0.02em;
+}
+
+@font-face {
+  font-family: 'Tron';
+  src: url("../public/fonts/Tr2n.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

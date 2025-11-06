@@ -24,8 +24,8 @@
   }
 
   .hero {
-    font-family: var(--font-titles);
-    @apply text-[6rem] font-extrabold inline-block text-center tracking-[0.08em];
+    font-family: var(--font-header);
+    @apply text-[8rem] font-extrabold inline-block text-center tracking-[0.08em];
     color: var(--color-primary);
   }
 }
