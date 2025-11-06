@@ -18,7 +18,6 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
 
-  // --- Fetch logic separated for reuse ---
   const fetchData = async () => {
     try {
       const resPosts = await api.get('/posts');
@@ -41,14 +40,13 @@ export default function HomePage() {
     const hasSeenIntro = sessionStorage.getItem('seenIntro');
     setShowIntro(!hasSeenIntro);
 
-    // only fetch data if intro already seen
     if (hasSeenIntro) fetchData();
   }, []);
 
   const handleIntroComplete = async () => {
     sessionStorage.setItem('seenIntro', 'true');
     setShowIntro(false);
-    await fetchData(); // fetch right after intro completes
+    await fetchData();
   };
 
   const handlePostClick = (id) => router.push(`/posts/${id}`);
@@ -69,7 +67,7 @@ export default function HomePage() {
 
       {pinnedPost && (
         <section className="pinned-post-section">
-          <h2 className="section-title">📌 Important</h2>
+          <h2 className="section-title">Important</h2>
           <PinnedPostCard post={pinnedPost} onClick={handlePostClick} />
         </section>
       )}

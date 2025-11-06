@@ -1,9 +1,34 @@
 @import "../globals.css";
 
 .posts-page-container {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center max-w-6xl mx-auto px-6 py-16 space-y-16;
+}
+
+.archive-header {
+  @apply text-center space-y-3 mb-8;
+}
+
+.archive-title {
+  @apply text-5xl font-bold text-cyan-400 tracking-wide;
+}
+
+.archive-subtitle {
+  @apply text-gray-400 text-lg max-w-2xl mx-auto;
+}
+
+.archive-category {
+  @apply w-full space-y-6;
+}
+
+.category-title {
+  @apply text-2xl font-semibold text-cyan-300 border-b border-cyan-900/50 pb-2;
 }
 
 .posts-grid {
-  @apply w-full;
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.loading,
+.error {
+  @apply text-gray-400 text-center mt-10;
 }

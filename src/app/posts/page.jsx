@@ -1,60 +1,134 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import api from '../../lib/api';
 import PostCard from '../components/PostCard';
+import FilterBar from '../components/FilterBar';
 import './posts.tailwind.css';
 
 export default function PostsPage() {
   const router = useRouter();
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // filter state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
   useEffect(() => {
+    let mounted = true;
     async function fetchPosts() {
       try {
         const res = await api.get('/posts');
-        const publishedPosts = (res.data.posts || []).filter(p => p.published);
+        const published = (res.data.posts || []).filter(p => p.published);
 
-        // Sort latest first
-        publishedPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const normalized = published.map(p => ({
+          ...p,
+          tags: (p.tags || []).map(t => (typeof t === 'string' ? t : t?.name || String(t))),
 
-        setPosts(publishedPosts);
+          category: typeof p.category === 'string' ? p.category : p.category?.name || 'Uncategorized',
+        }));
+
+        normalized.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        if (!mounted) return;
+        setPosts(normalized);
       } catch (err) {
-        console.error('Failed to fetch posts:', err);
+        console.error(err);
+        if (!mounted) return;
         setError('Failed to load posts.');
       } finally {
-        setLoading(false);
+        if (mounted) setLoading(false);
       }
     }
-
     fetchPosts();
+    return () => { mounted = false; };
   }, []);
+
+  const categories = useMemo(() => {
+    const set = new Set(posts.map(p => p.category || 'Uncategorized'));
+    return Array.from(set);
+  }, [posts]);
+
+  const tags = useMemo(() => {
+    const set = new Set(posts.flatMap(p => p.tags || []));
+    return Array.from(set);
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+  
+  return posts.filter((p) => {
+    const category = p.category?.toLowerCase?.() || '';
+    const tags = (p.tags || []).map(t => t.toLowerCase());
+
+    const selectedCatsLower = selectedCategories.map(c => c.toLowerCase());
+    const selectedTagsLower = selectedTags.map(t => t.toLowerCase());
+
+    const matchSearch =
+      !searchTerm ||
+      p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      category.includes(searchTerm.toLowerCase()) ||
+      tags.some(tag => tag.includes(searchTerm.toLowerCase()));
+
+
+    const matchCategory =
+      selectedCatsLower.length === 0 ||
+      selectedCatsLower.includes(category);
+
+    const matchTag =
+      selectedTagsLower.length === 0 ||
+      tags.some(tag => selectedTagsLower.includes(tag));
+
+    const passes = matchSearch && matchCategory && matchTag;
+
+    return passes;
+  });
+}, [posts, selectedCategories, selectedTags, searchTerm]);
+
+
 
   const handlePostClick = (id) => router.push(`/posts/${id}`);
 
   if (loading) return <div className="loading">Loading posts...</div>;
   if (error) return <div className="error">{error}</div>;
-  if (posts.length === 0) return <div className="text-gray-500">No posts yet.</div>;
 
   return (
     <motion.div
-      className="posts-page-container max-w-5xl mx-auto px-4 py-8 space-y-12"
+      className="posts-page-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.28 }}
     >
-      <h1 className="section-title text-cyan-400 text-4xl">All Posts</h1>
+      <header className="archive-header">
+        <h1 className="archive-title">The Archives</h1>
+        <p className="archive-subtitle">Every post, across time and thought.</p>
+      </header>
 
-      <ul className="posts-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map(post => (
-          <PostCard key={post.id} post={post} onClick={handlePostClick} />
-        ))}
-      </ul>
+      <FilterBar
+        tags={tags}
+        categories={categories}
+        selectedTags={selectedTags}
+        selectedCategories={selectedCategories}
+        onTagChange={setSelectedTags}
+        onCategoryChange={setSelectedCategories}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
+      {filteredPosts.length === 0 ? (
+        <p className="text-gray-500 mt-8">No posts match your filters.</p>
+      ) : (
+        <ul className="posts-grid">
+          {filteredPosts.map(post => (
+            <PostCard key={post.id} post={post} onClick={handlePostClick} />
+          ))}
+        </ul>
+      )}
     </motion.div>
   );
 }
