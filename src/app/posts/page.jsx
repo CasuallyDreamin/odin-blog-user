@@ -3,8 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import api from '../../lib/api';
-import PostCard from '../components/PostCard';
+import api from '../lib/api';
+import PostCard from '../components/posts/PostCard';
 import FilterBar from '../components/FilterBar';
 import './posts.tailwind.css';
 

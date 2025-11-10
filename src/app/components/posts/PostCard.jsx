@@ -1,5 +1,5 @@
 'use client';
-import '../../styles/postcard.tailwind.css';
+import '../../../styles/components/postcard.tailwind.css';
 export default function PostCard({ post, onClick }) {
   return (
     <li

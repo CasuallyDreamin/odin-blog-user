@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import IntroSequence from './components/BootSequence';
-import PostCard from './components/PostCard';
-import PinnedPostCard from './components/PinnedPostCard';
-import QuoteCard from './components/QuoteCard';
-import api from '../lib/api';
-import '../styles/homepage.tailwind.css';
+import PostCard from './components/posts/PostCard';
+import PinnedPostCard from './components/posts/PinnedPostCard';
+import QuoteCard from './components/thoughts/QuoteCard';
+import api from './lib/api';
+import '../styles/pages/homepage.tailwind.css';
 
 export default function HomePage() {
   const router = useRouter();
