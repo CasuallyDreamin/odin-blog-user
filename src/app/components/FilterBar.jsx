@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import './FilterBar.tailwind.css';
@@ -8,15 +8,39 @@ import './FilterBar.tailwind.css';
 export default function FilterBar({
   tags = [],
   categories = [],
+  types = [],
+
   selectedTags = [],
   selectedCategories = [],
-  onTagChange,
-  onCategoryChange,
-  searchTerm,
-  onSearchChange,
+  selectedTypes = [],
+
+  onTagChange = () => {},
+  onCategoryChange = () => {},
+  onTypeChange = () => {},
+
+  searchTerm = '',
+  onSearchChange = () => {},
+
+  placeholder = 'Search titles, tags, categories...',
+  debounceMs = 200,
 }) {
   const [openMenu, setOpenMenu] = useState(null);
   const containerRef = useRef(null);
+
+  const [localSearch, setLocalSearch] = useState(searchTerm);
+
+  useEffect(() => {
+    setLocalSearch(searchTerm ?? '');
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (!debounceMs || debounceMs <= 0) {
+      onSearchChange(localSearch);
+      return;
+    }
+    const id = setTimeout(() => onSearchChange(localSearch), debounceMs);
+    return () => clearTimeout(id);
+  }, [localSearch, debounceMs, onSearchChange]);
 
   useEffect(() => {
     function onDocClick(e) {
@@ -28,50 +52,66 @@ export default function FilterBar({
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
-  const toggleTag = (tag) => {
-    const next =
-      selectedTags.includes(tag)
+  // toggle helpers (keeps original API behavior)
+  const toggleTag = useCallback(
+    (tag) => {
+      const next = selectedTags.includes(tag)
         ? selectedTags.filter((t) => t !== tag)
         : [...selectedTags, tag];
-    onTagChange(next);
-  };
+      onTagChange(next);
+    },
+    [selectedTags, onTagChange]
+  );
 
-  const toggleCategory = (cat) => {
-    const next =
-      selectedCategories.includes(cat)
+  const toggleCategory = useCallback(
+    (cat) => {
+      const next = selectedCategories.includes(cat)
         ? selectedCategories.filter((c) => c !== cat)
         : [...selectedCategories, cat];
-    onCategoryChange(next);
-  };
+      onCategoryChange(next);
+    },
+    [selectedCategories, onCategoryChange]
+  );
 
-  function Dropdown({ type, label, items, selected, onToggle }) {
+  const toggleType = useCallback(
+    (t) => {
+      const next = selectedTypes.includes(t)
+        ? selectedTypes.filter((x) => x !== t)
+        : [...selectedTypes, t];
+      onTypeChange(next);
+    },
+    [selectedTypes, onTypeChange]
+  );
+
+  // Generic Dropdown subcomponent (re-usable for categories/tags/types)
+  function Dropdown({ type, label, items = [], selected = [], onToggle }) {
+    const wrapperRef = useRef(null);
     const btnRef = useRef(null);
     const [btnWidth, setBtnWidth] = useState(null);
 
     useEffect(() => {
-      if (btnRef.current) setBtnWidth(btnRef.current.offsetWidth);
-      function handleResize() {
-        if (btnRef.current) setBtnWidth(btnRef.current.offsetWidth);
-      }
+      const el = btnRef.current;
+      if (!el) return;
+      setBtnWidth(el.offsetWidth);
+      const handleResize = () => setBtnWidth(el.offsetWidth);
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const selectedCount = selected.length;
-    const shownLabel =
-      selectedCount > 0 ? `${label} (${selectedCount})` : label;
+    const selectedCount = Array.isArray(selected) ? selected.length : 0;
+    const shownLabel = selectedCount > 0 ? `${label} (${selectedCount})` : label;
+
+    if (!items || items.length === 0) return null;
 
     return (
-      <div className="relative filter-dropdown" ref={btnRef}>
+      <div className="relative filter-dropdown" ref={wrapperRef}>
         <button
           ref={btnRef}
           className={`dropdown-btn ${openMenu === type ? 'active' : ''}`}
-          onClick={() => {
-            console.log('[FilterBar] Toggling dropdown:', type);
-            setOpenMenu(openMenu === type ? null : type);
-          }}
+          onClick={() => setOpenMenu((prev) => (prev === type ? null : type))}
           aria-expanded={openMenu === type}
           aria-haspopup="menu"
+          type="button"
         >
           <span className="dropdown-label">{shownLabel}</span>
           <motion.div
@@ -120,13 +160,11 @@ export default function FilterBar({
     <div className="filter-bar" ref={containerRef}>
       <input
         type="search"
-        placeholder="Search titles, tags, categories..."
-        value={searchTerm}
-        onChange={(e) => {
-          onSearchChange(e.target.value);
-        }}
+        placeholder={placeholder}
+        value={localSearch}
+        onChange={(e) => setLocalSearch(e.target.value)}
         className="filter-search-input"
-        aria-label="Search posts"
+        aria-label="Search content"
       />
 
       <div className="filter-controls">
@@ -137,12 +175,21 @@ export default function FilterBar({
           selected={selectedCategories}
           onToggle={toggleCategory}
         />
+
         <Dropdown
           type="tags"
           label="Tags"
           items={tags}
           selected={selectedTags}
           onToggle={toggleTag}
+        />
+
+        <Dropdown
+          type="types"
+          label="Types"
+          items={types}
+          selected={selectedTypes}
+          onToggle={toggleType}
         />
       </div>
     </div>
