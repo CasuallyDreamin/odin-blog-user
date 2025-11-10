@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer components {
+  .quote-card {
+    @apply relative bg-[oklch(0.18_0.02_260/0.6)] rounded-xl p-5
+           border border-[oklch(0.35_0.02_260)] shadow-[0_0_12px_oklch(0.8_0.18_190/0.1)]
+           transition duration-300 ease-in-out;
+  }
+
+  .quote-card:hover {
+    @apply shadow-[0_0_18px_oklch(0.8_0.18_190/0.3)];
+  }
+
+  .quote-text {
+    @apply font-[var(--font-body)] italic text-[oklch(0.9_0.02_260)] text-sm leading-relaxed;
+  }
+}

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .post-card {
+    @apply p-6 bg-neutral-900 rounded-xl border border-(--color-border) hover:shadow-lg transition cursor-pointer hover:bg-neutral-800;
+  }
+}

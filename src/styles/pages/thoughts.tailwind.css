@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer components {
+  .thoughts-page {
+    @apply max-w-6xl mx-auto px-6 py-16 space-y-20;
+  }
+
+  .category-section {
+    @apply space-y-6;
+  }
+
+  .category-title {
+    @apply text-[cyan] 
+           font-[var(--font-titles)] uppercase tracking-[0.15em] 
+           text-3xl font-bold;
+  }
+
+  
+  .marquee-container {
+    @apply relative overflow-hidden;
+  }
+
+  
+  .marquee-content {
+    @apply flex gap-12 will-change-transform;
+  }
+
+  
+  .quote-item {
+    @apply flex flex-col gap-2 min-w-max px-8;
+  }
+
+  .quote-text {
+    @apply font-[var(--font-body)] italic 
+           text-[oklch(0.9_0.02_260)] 
+           text-xl leading-relaxed tracking-wide 
+           transition duration-300 ease-in-out;
+  }
+
+  .quote-text:hover {
+    text-shadow: 0 0 14px oklch(var(--color-primary) / 0.8);
+  }
+
+  .quote-author {
+    @apply text-[oklch(var(--color-text-muted))] 
+           font-[var(--font-titles)] tracking-[0.15em];
+  }
+}

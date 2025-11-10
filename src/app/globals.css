@@ -6,8 +6,8 @@
 @theme {
   --color-primary: oklch(0.8 0.18 190);
   --color-bg: oklch(0.15 0.02 260);
-  --color-surface: oklch(0.22 0.02 260);
-  --color-border: oklch(0.4 0.02 260);
+  --color-surface: #171717;
+  --color-border: rgba(0,200,250);
   --color-text-muted: oklch(0.7 0.02 260);
   
   --font-header: 'Tron', sans-serif;
