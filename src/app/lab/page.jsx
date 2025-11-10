@@ -1,13 +1,16 @@
-'use client';
-
-import SectionHeader from '../components/SectionHeader';
+import LabSection from '../components/lab/LabSection';
+import labData from '../lib/data/lab';
 
 export default function LabPage() {
   return (
-    <div className="homepage-container">
-      <SectionHeader title="Lab" />
-      <p className="post-preview">Placeholder for experimental projects and code experiments.</p>
-      <a href="/projects" className="submit-button mt-4 inline-block">View Projects</a>
-    </div>
+    <main className="lab-page mx-auto px-6 py-16">
+      {labData.map((section) => (
+        <LabSection
+          key={section.category}
+          title={section.category}
+          projects={section.projects}
+        />
+      ))}
+    </main>
   );
 }
