@@ -29,3 +29,9 @@
     color: var(--color-primary);
   }
 }
+
+@media (max-width: 760px) {
+  .hero {
+    transform: scale(0.5);
+  }  
+}

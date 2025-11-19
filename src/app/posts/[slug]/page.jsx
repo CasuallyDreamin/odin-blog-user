@@ -31,7 +31,8 @@ export default function PostPage() {
         }
 
         setPost(postData);
-        setComments(postData.comments || []);
+        setComments((postData.comments || []).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+;
       } catch (err) {
         console.error('Failed to fetch post:', err);
         setError('Failed to load post. Please try again later.');

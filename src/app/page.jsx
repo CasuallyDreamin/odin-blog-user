@@ -17,8 +17,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
-
-  // search state
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -27,7 +25,6 @@ export default function HomePage() {
 
     if (hasSeenIntro) fetchData();
 
-    // Listen to global search from Navbar
     const handleGlobalSearch = (e) => setSearchTerm(e.detail ?? '');
     window.addEventListener('globalSearch', handleGlobalSearch);
     return () => window.removeEventListener('globalSearch', handleGlobalSearch);
@@ -35,7 +32,7 @@ export default function HomePage() {
 
   const fetchData = async () => {
     try {
-      const resPosts = await api.get('/posts');
+      const resPosts = await api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc' } });
       const publishedPosts = (resPosts.data.posts || []).filter(p => p.published);
 
       setPinnedPost(publishedPosts.find(p => p.layout?.pinned) || null);
@@ -57,18 +54,17 @@ export default function HomePage() {
     await fetchData();
   };
 
-  const handlePostClick = (id) => router.push(`/posts/${id}`);
+  const handlePostClick = (post) => router.push(`/posts/${post.slug}`);
 
   const filteredPosts = useMemo(() => {
-  if (!searchTerm) return posts;
-  const term = searchTerm.toLowerCase();
-  return posts.filter(p => 
-    p.title.toLowerCase().includes(term) ||
-    (p.category?.toLowerCase?.().includes(term)) ||
-    (p.tags?.some(t => String(t).toLowerCase().includes(term)))
-  );
-}, [posts, searchTerm]);
-
+    if (!searchTerm) return posts;
+    const term = searchTerm.toLowerCase();
+    return posts.filter(p => 
+      p.title.toLowerCase().includes(term) ||
+      (p.categories?.some(c => c.name.toLowerCase().includes(term))) ||
+      (p.tags?.some(t => String(t).toLowerCase().includes(term)))
+    );
+  }, [posts, searchTerm]);
 
   if (showIntro) return <IntroSequence onComplete={handleIntroComplete} />;
   if (loading) return <div className="loading"></div>;
@@ -95,7 +91,7 @@ export default function HomePage() {
         ) : (
           <ul className="posts-grid">
             {filteredPosts.map(post => (
-              <PostCard key={post.id} post={post} onClick={handlePostClick} />
+              <PostCard key={post.id} post={post} onClick={() => handlePostClick(post)} />
             ))}
           </ul>
         )}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import api from '../lib/api';
-import { Mail, Github, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Github, X, Linkedin } from 'lucide-react';
 import '../../styles/pages/contact.tailwind.css';
 
 export default function ContactPage() {
@@ -48,32 +48,32 @@ export default function ContactPage() {
         </p>
         <div className="flex flex-col gap-3 mt-4">
           <a
-            href="mailto:your@email.com"
+            href="mailto:ysn.arambash@email.com"
             target="_blank"
             className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
           >
-            <Mail size={20} /> your@email.com
+            <Mail size={20} /> ysn.arambash@gmail.com
           </a>
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/CasuallyDreamin"
             target="_blank"
             className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
           >
-            <Github size={20} /> @yourusername
+            <Github size={20} /> @CasuallyDreamin
           </a>
           <a
-            href="https://twitter.com/yourusername"
+            href="https://twitter.com/hithereitssin"
             target="_blank"
             className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
           >
-            <Twitter size={20} /> @yourusername
+            <X size={20} /> @hithereitssin
           </a>
           <a
-            href="https://linkedin.com/in/yourusername"
+            href="https://www.linkedin.com/in/yasin-aram-bash-0a333a284"
             target="_blank"
             className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
           >
-            <Linkedin size={20} /> @yourusername
+            <Linkedin size={20} /> @yasin-aram-bash
           </a>
         </div>
 
