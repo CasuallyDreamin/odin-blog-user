@@ -19,25 +19,45 @@ export default function PostsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [sortOrder, setSortOrder] = useState('desc');
+
+  // full unfiltered lists
+  const [allCategories, setAllCategories] = useState([]);
+  const [allTags, setAllTags] = useState([]);
+
+  // Listen to global search from Navbar
+  useEffect(() => {
+    const handleGlobalSearch = (e) => setSearchTerm(e.detail ?? '');
+    window.addEventListener('globalSearch', handleGlobalSearch);
+    return () => window.removeEventListener('globalSearch', handleGlobalSearch);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
+
     async function fetchPosts() {
+      setLoading(true);
       try {
-        const res = await api.get('/posts');
-        const published = (res.data.posts || []).filter(p => p.published);
+        const res = await api.get('/posts', { params: { sort: sortOrder } });
+        if (!mounted) return;
 
-        const normalized = published.map(p => ({
-          ...p,
-          tags: (p.tags || []).map(t => (typeof t === 'string' ? t : t?.name || String(t))),
-
-          category: typeof p.category === 'string' ? p.category : p.category?.name || 'Uncategorized',
-        }));
-
-        normalized.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const normalized = (res.data.posts || [])
+          .filter(p => p.published)
+          .map(p => ({
+            ...p,
+            tags: (p.tags || []).map(t => (typeof t === 'string' ? t : t?.name || String(t))),
+            categories: p.categories || [],
+          }));
 
         if (!mounted) return;
         setPosts(normalized);
+
+        // Extract full category/tag lists from all posts
+        const categoriesSet = new Set(normalized.flatMap(p => p.categories?.map(c => c.name) || []));
+        const tagsSet = new Set(normalized.flatMap(p => p.tags || []));
+
+        setAllCategories(Array.from(categoriesSet));
+        setAllTags(Array.from(tagsSet));
       } catch (err) {
         console.error(err);
         if (!mounted) return;
@@ -46,53 +66,37 @@ export default function PostsPage() {
         if (mounted) setLoading(false);
       }
     }
+
     fetchPosts();
     return () => { mounted = false; };
-  }, []);
+  }, [sortOrder]);
 
-  const categories = useMemo(() => {
-    const set = new Set(posts.map(p => p.category || 'Uncategorized'));
-    return Array.from(set);
-  }, [posts]);
-
-  const tags = useMemo(() => {
-    const set = new Set(posts.flatMap(p => p.tags || []));
-    return Array.from(set);
-  }, [posts]);
-
+  // filtered posts based on search + selected filters
   const filteredPosts = useMemo(() => {
-  
-  return posts.filter((p) => {
-    const category = p.category?.toLowerCase?.() || '';
-    const tags = (p.tags || []).map(t => t.toLowerCase());
+    return posts.filter((p) => {
+      const postCategories = (p.categories || []).map(c => c.name.toLowerCase());
+      const postTags = (p.tags || []).map(t => t.toLowerCase());
+      const search = searchTerm.toLowerCase();
 
-    const selectedCatsLower = selectedCategories.map(c => c.toLowerCase());
-    const selectedTagsLower = selectedTags.map(t => t.toLowerCase());
+      const matchSearch =
+        !searchTerm ||
+        p.title.toLowerCase().includes(search) ||
+        postCategories.some(c => c.includes(search)) ||
+        postTags.some(t => t.includes(search));
 
-    const matchSearch =
-      !searchTerm ||
-      p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      category.includes(searchTerm.toLowerCase()) ||
-      tags.some(tag => tag.includes(searchTerm.toLowerCase()));
+      const matchCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.some(c => postCategories.includes(c.toLowerCase()));
 
+      const matchTag =
+        selectedTags.length === 0 ||
+        selectedTags.some(t => postTags.includes(t.toLowerCase()));
 
-    const matchCategory =
-      selectedCatsLower.length === 0 ||
-      selectedCatsLower.includes(category);
+      return matchSearch && matchCategory && matchTag;
+    });
+  }, [posts, searchTerm, selectedCategories, selectedTags]);
 
-    const matchTag =
-      selectedTagsLower.length === 0 ||
-      tags.some(tag => selectedTagsLower.includes(tag));
-
-    const passes = matchSearch && matchCategory && matchTag;
-
-    return passes;
-  });
-}, [posts, selectedCategories, selectedTags, searchTerm]);
-
-
-
-  const handlePostClick = (id) => router.push(`/posts/${id}`);
+  const handlePostClick = (post) => router.push(`/posts/${post.slug}`);
 
   if (loading) return <div className="loading">Loading posts...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -106,26 +110,29 @@ export default function PostsPage() {
       transition={{ duration: 0.28 }}
     >
       <header className="archive-header">
-        <h1 className="archive-title">The Archives</h1>
-        <p className="archive-subtitle">Every post, across time and thought.</p>
+        <h1 className="archive-title">Posts</h1>
+        <p className="archive-subtitle">Only the posts</p>
       </header>
 
       <FilterBar
-        tags={tags}
-        categories={categories}
-        selectedTags={selectedTags}
+        categories={allCategories}
+        tags={allTags}
         selectedCategories={selectedCategories}
-        onTagChange={setSelectedTags}
+        selectedTags={selectedTags}
         onCategoryChange={setSelectedCategories}
+        onTagChange={setSelectedTags}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        sortOrder={sortOrder}
+        onSortChange={setSortOrder}
       />
+
       {filteredPosts.length === 0 ? (
         <p className="text-gray-500 mt-8">No posts match your filters.</p>
       ) : (
         <ul className="posts-grid">
           {filteredPosts.map(post => (
-            <PostCard key={post.id} post={post} onClick={handlePostClick} />
+            <PostCard key={post.id} post={post} onClick={() => handlePostClick(post)} />
           ))}
         </ul>
       )}

@@ -3,14 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import api from '../../../lib/api';
+import api from '../../lib/api';
 import Article from '../../components/posts/Article';
 import CommentForm from '../../components/posts/CommentForm';
 import CommentList from '../../components/posts/CommentList';
 import '../../../styles/pages/postpage.tailwind.css';
 
 export default function PostPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const router = useRouter();
 
   const [post, setPost] = useState(null);
@@ -22,7 +22,7 @@ export default function PostPage() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const res = await api.get(`/posts/${id}`);
+        const res = await api.get(`/posts/${slug}`);
         const postData = res.data;
 
         if (!postData || !postData.published) {
@@ -41,7 +41,7 @@ export default function PostPage() {
     }
 
     fetchPost();
-  }, [id, router]);
+  }, [slug, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

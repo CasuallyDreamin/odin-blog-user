@@ -4,7 +4,7 @@ export default function PostCard({ post, onClick }) {
   return (
     <li
       className={`post-card ${post.layout?.pinned ? 'border-cyan-400' : ''}`}
-      onClick={() => onClick(post.id)}
+      onClick={() => onClick(post.slug)}
     >
       <h3 className="post-title">{post.title}</h3>
       <p className="post-meta">
