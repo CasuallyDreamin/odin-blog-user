@@ -6,13 +6,13 @@
 
 /* container */
 .filter-bar {
-  @apply flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full mb-6;
+  @apply flex flex-col md:flex-row items-center justify-between gap-4 w-full mb-6;
   gap: 1rem;
 }
 
 /* search */
 .filter-search-input {
-  @apply w-full max-w-sm px-4 py-2 rounded-xl text-sm
+  @apply w-full max-w-sm px-4 py-2 rounded-xl text-sm self-center
          bg-black border border-[black] text-gray-100 placeholder-gray-500
          focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-indigo-500
          transition duration-200 ease-in-out;
