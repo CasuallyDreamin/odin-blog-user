@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import IntroSequence from './components/BootSequence';
 import PostCard from './components/posts/PostCard';
@@ -17,6 +17,21 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
+
+  // search state
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const hasSeenIntro = sessionStorage.getItem('seenIntro');
+    setShowIntro(!hasSeenIntro);
+
+    if (hasSeenIntro) fetchData();
+
+    // Listen to global search from Navbar
+    const handleGlobalSearch = (e) => setSearchTerm(e.detail ?? '');
+    window.addEventListener('globalSearch', handleGlobalSearch);
+    return () => window.removeEventListener('globalSearch', handleGlobalSearch);
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -36,13 +51,6 @@ export default function HomePage() {
     }
   };
 
-  useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem('seenIntro');
-    setShowIntro(!hasSeenIntro);
-
-    if (hasSeenIntro) fetchData();
-  }, []);
-
   const handleIntroComplete = async () => {
     sessionStorage.setItem('seenIntro', 'true');
     setShowIntro(false);
@@ -51,10 +59,18 @@ export default function HomePage() {
 
   const handlePostClick = (id) => router.push(`/posts/${id}`);
 
-  if (showIntro) {
-    return <IntroSequence onComplete={handleIntroComplete} />;
-  }
+  const filteredPosts = useMemo(() => {
+  if (!searchTerm) return posts;
+  const term = searchTerm.toLowerCase();
+  return posts.filter(p => 
+    p.title.toLowerCase().includes(term) ||
+    (p.category?.toLowerCase?.().includes(term)) ||
+    (p.tags?.some(t => String(t).toLowerCase().includes(term)))
+  );
+}, [posts, searchTerm]);
 
+
+  if (showIntro) return <IntroSequence onComplete={handleIntroComplete} />;
   if (loading) return <div className="loading"></div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -74,11 +90,11 @@ export default function HomePage() {
 
       <section className="posts-grid-section">
         <h2 className="section-title">Latest Posts</h2>
-        {posts.length === 0 ? (
-          <p className="text-gray-500">No posts yet.</p>
+        {filteredPosts.length === 0 ? (
+          <p className="text-gray-500">No posts match your search.</p>
         ) : (
           <ul className="posts-grid">
-            {posts.map(post => (
+            {filteredPosts.map(post => (
               <PostCard key={post.id} post={post} onClick={handlePostClick} />
             ))}
           </ul>

@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+/* contact.tailwind.css */
+.input-field {
+  @apply w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-800 text-gray-100 placeholder-gray-500
+         focus:outline-none focus:ring-2 focus:ring-cyan-500 transition duration-200;
+}
