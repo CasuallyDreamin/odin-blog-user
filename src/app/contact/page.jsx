@@ -39,39 +39,45 @@ export default function ContactPage() {
   return (
     <div className="contact-page-container max-w-2xl mx-auto px-4 py-12 flex flex-col gap-12">
       <div>
-        <h1 className="text-3xl font-bold text-cyan-400 mb-4">Contact Me</h1>
-        <p className="text-gray-300 mb-4">
+        {/* Refactored: Text color uses var(--color-accent) */}
+        <h1 className="text-3xl font-bold text-[var(--color-accent)] mb-4">Contact Me</h1>
+        
+        {/* Refactored: Text color uses var(--color-text-base) */}
+        <p className="text-[var(--color-text-base)] mb-4">
           Got questions, ideas, or just want to say hi? Send me a message using the form below.
         </p>
-        <p className="text-gray-400">
+        
+        {/* Refactored: Text color uses var(--color-text-muted) */}
+        <p className="text-[var(--color-text-muted)]">
           I usually reply within a couple of days. You can also reach out via social media:
         </p>
+        
         <div className="flex flex-col gap-3 mt-4">
           <a
             href="mailto:ysn.arambash@email.com"
             target="_blank"
-            className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
+            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
           >
             <Mail size={20} /> ysn.arambash@gmail.com
           </a>
           <a
             href="https://github.com/CasuallyDreamin"
             target="_blank"
-            className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
+            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
           >
             <Github size={20} /> @CasuallyDreamin
           </a>
           <a
             href="https://twitter.com/hithereitssin"
             target="_blank"
-            className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
+            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
           >
             <X size={20} /> @hithereitssin
           </a>
           <a
             href="https://www.linkedin.com/in/yasin-aram-bash-0a333a284"
             target="_blank"
-            className="flex items-center gap-2 text-gray-300 hover:text-cyan-400"
+            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
           >
             <Linkedin size={20} /> @yasin-aram-bash
           </a>
@@ -99,14 +105,14 @@ export default function ContactPage() {
           placeholder="Your Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="input-field h-32 resize-none"
+          className="input-field h-32"
         />
 
         {status && (
           <p
-            className={`${
+            className={`text-sm ${
               status.type === 'success' ? 'text-green-400' : 'text-red-400'
-            } text-sm`}
+            }`}
           >
             {status.text}
           </p>
@@ -114,7 +120,7 @@ export default function ContactPage() {
 
         <button
           type="submit"
-          className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-4 rounded transition duration-200"
+          className="bg-[var(--color-accent)] hover:opacity-90 text-[var(--color-bg)] font-semibold py-2 px-4 rounded transition duration-200"
           disabled={loading}
         >
           {loading ? 'Sending...' : 'Send Message'}

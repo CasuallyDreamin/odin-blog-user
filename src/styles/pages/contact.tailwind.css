@@ -1,7 +1,22 @@
 @import 'tailwindcss';
 
-/* contact.tailwind.css */
-.input-field {
-  @apply w-full px-4 py-2 rounded-lg bg-neutral-950 border border-neutral-800 text-gray-100 placeholder-gray-500
-         focus:outline-none focus:ring-2 focus:ring-cyan-500 transition duration-200;
+@layer components {
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg resize-none;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-base);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .input-field::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.8;
+  }
+  
+  .input-field:focus {
+    @apply focus:outline-none ring-2;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
 }

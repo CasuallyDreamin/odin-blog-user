@@ -6,27 +6,30 @@
   }
 
   .lab-title {
-    @apply text-[oklch(0.8_0.18_190)] font-[var(--font-titles)]
-           text-lg uppercase tracking-[0.2em];
+    color: var(--color-primary);
+    font-family: var(--font-titles);
+    @apply text-lg uppercase tracking-[0.2em];
   }
 
   .lab-grid {
-
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10px;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10;
   }
 
   .lab-card-title {
-    @apply font-[var(--font-titles)] text-[oklch(0.9_0.02_260)]
-           text-lg mb-2 tracking-wide;
+    color: var(--color-text-base);
+    font-family: var(--font-titles);
+    @apply text-lg mb-2 tracking-wide;
   }
 
   .lab-card-desc {
-    @apply font-[var(--font-body)] text-[oklch(0.7_0.02_260)]
-           text-sm leading-relaxed mb-4;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    @apply text-sm leading-relaxed mb-4;
   }
 
   .lab-card-link {
-    @apply font-[var(--font-titles)] text-[oklch(0.8_0.18_190)]
-           text-xs uppercase tracking-widest;
+    color: var(--color-accent);
+    font-family: var(--font-titles);
+    @apply text-xs uppercase tracking-widest;
   }
 }

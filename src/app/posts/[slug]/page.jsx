@@ -22,17 +22,16 @@ export default function PostPage() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const res = await api.get(`/posts/${slug}`);
+        const res = await api.get(`/posts/${slug}`); 
         const postData = res.data;
 
-        if (!postData || !postData.published) {
+        if (!postData || !postData.published || !postData.content) {
           router.push('/');
           return;
         }
 
         setPost(postData);
         setComments((postData.comments || []).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-;
       } catch (err) {
         console.error('Failed to fetch post:', err);
         setError('Failed to load post. Please try again later.');
@@ -47,7 +46,10 @@ export default function PostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!post?.id) return;
-    if (!formData.name.trim() || !formData.comment.trim()) return;
+    if (!formData.name.trim() || !formData.comment.trim()) {
+      console.error('Comment submission failed: Name and comment are required.');
+      return;
+    }
 
     try {
       const res = await api.post('/comments', {
@@ -57,11 +59,10 @@ export default function PostPage() {
         body: formData.comment.trim(),
       });
 
-      setComments([...comments, res.data]);
+      setComments((currentComments) => [res.data, ...currentComments].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
       setFormData({ name: '', email: '', comment: '' });
     } catch (err) {
       console.error('Failed to post comment:', err.response?.data || err.message);
-      alert('Could not submit comment. Try again.');
     }
   };
 
@@ -81,6 +82,7 @@ export default function PostPage() {
       </button>
 
       <Article post={post} />
+
       <CommentForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} />
       <CommentList comments={comments} />
     </motion.div>

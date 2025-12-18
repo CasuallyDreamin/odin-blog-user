@@ -4,4 +4,27 @@
   .post-container {
     @apply max-w-3xl mx-auto px-4 py-8;
   }
+  
+  .posts-page-container {
+    @apply max-w-5xl mx-auto px-4 py-8 space-y-8;
+  }
+
+  .archive-header {
+    @apply text-center pb-8;
+  }
+
+  .archive-title {
+    @apply text-5xl font-extrabold mb-2 font-[var(--font-titles)];
+    color: var(--color-primary);
+    letter-spacing: 0.08em;
+  }
+
+  .archive-subtitle {
+    @apply text-xl font-[var(--font-body)];
+    color: var(--color-text-muted);
+  }
+
+  .posts-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
 }

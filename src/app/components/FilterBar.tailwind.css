@@ -1,75 +1,85 @@
 @import 'tailwindcss';
-/* use your css variables defined in globals.css */
-:root {
-  /* fallback hues if needed */
-}
 
-/* container */
-.filter-bar {
-  @apply flex flex-col md:flex-row items-center justify-between gap-4 w-full mb-6;
-  gap: 1rem;
-}
+@layer components {
+  /* container */
+  .filter-bar {
+    @apply flex flex-col md:flex-row items-center justify-between w-full mb-6;
+    gap: 1rem;
+  }
 
-/* search */
-.filter-search-input {
-  @apply w-full max-w-sm px-4 py-2 rounded-xl text-sm self-center
-         bg-black border border-[black] text-gray-100 placeholder-gray-500
-         focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-indigo-500
-         transition duration-200 ease-in-out;
-}
+  /* search */
+  .filter-search-input {
+    @apply w-full max-w-sm px-4 py-2 rounded-xl text-sm self-center
+           border focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] 
+           transition duration-200 ease-in-out;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text-base);
+  }
+  
+  .filter-search-input::placeholder {
+    color: var(--color-text-muted);
+  }
 
-.filter-controls {
-  @apply flex items-center gap-3 flex-wrap;
-}
+  .filter-controls {
+    @apply flex items-center gap-3 flex-wrap;
+  }
 
-/* dropdown button */
-.dropdown-btn {
-  @apply flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-md cursor-pointer transition;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--color-border);
-  color: inherit;
-  min-width: 10rem; /* flexible baseline */
-}
+  /* dropdown button */
+  .dropdown-btn {
+    @apply flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-md cursor-pointer transition;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-base);
+    min-width: 10rem;
+  }
 
-/* active state uses primary color */
-.dropdown-btn.active {
-  color: var(--color-primary);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
+  /* active state uses primary color */
+  .dropdown-btn.active {
+    color: var(--color-primary);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
 
-/* menu */
-.dropdown-menu {
-  @apply absolute left-0 mt-2 bg-neutral-950 border rounded-md z-30 max-h-56 overflow-auto;
-  border-color: var(--color-border);
-  padding: 0.25rem;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-}
+  /* menu */
+  .dropdown-menu {
+    @apply absolute left-0 mt-2 border rounded-md z-30 max-h-56 overflow-auto;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    padding: 0.25rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  }
 
-/* compact items */
-.dropdown-item {
-  @apply flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer hover:bg-neutral-900;
-  color: #e6eef0;
-}
+  /* compact items */
+  .dropdown-item {
+    @apply flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer;
+    color: var(--color-text-base);
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--color-bg);
+  }
 
-.dropdown-item input[type="checkbox"] {
-  @apply w-4 h-4;
-  accent-color: color-mix(in srgb, var(--color-primary) 60%, white 10%);
-}
+  .dropdown-item input[type="checkbox"] {
+    @apply w-4 h-4;
+    accent-color: var(--color-primary);
+  }
 
-/* item text */
-.dropdown-item-text {
-  @apply truncate;
-}
+  /* item text */
+  .dropdown-item-text {
+    @apply truncate;
+  }
 
-/* empty state */
-.empty-item {
-  @apply px-3 py-2 text-sm text-gray-500;
-}
+  /* empty state */
+  .empty-item {
+    @apply px-3 py-2 text-sm;
+    color: var(--color-text-muted);
+  }
 
-/* small responsiveness */
-@media (max-width: 640px) {
-  .filter-search-input { @apply w-full; }
-  .dropdown-btn { @apply w-full justify-between; }
-  .dropdown-menu { @apply left-0 right-0; min-width: auto; }
+  /* small responsiveness */
+  @media (max-width: 640px) {
+    .filter-search-input { @apply w-full; }
+    .dropdown-btn { @apply w-full justify-between; }
+    .dropdown-menu { @apply left-0 right-0; min-width: auto; }
+  }
 }

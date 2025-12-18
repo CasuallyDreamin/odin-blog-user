@@ -6,13 +6,13 @@
   }
 
   .lab-section-title {
-    @apply text-2xl font-[var(--font-titles)] text-[oklch(0.8_0.18_190)]
+    @apply text-2xl font-[var(--font-titles)]
            uppercase tracking-widest;
+    color: var(--color-primary);
   }
 
   .lab-section-grid {
-    /* responsive grid with min card width */
     @apply grid gap-6 auto-rows-auto
            grid-cols-[repeat(auto-fit,minmax(280px,1fr))];
   }
-}
+} 

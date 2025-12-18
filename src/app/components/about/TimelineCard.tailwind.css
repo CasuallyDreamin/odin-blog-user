@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 @layer components {
+  .timeline-card {
+    background-color: var(--color-surface);
+  }
   .timeline-card-title {
-    @apply text-lg font-semibold mb-2 text-white;
+    @apply text-lg font-semibold mb-2;
+    color: var(--color-primary);
   }
 
   .timeline-card-description {
-    @apply text-gray-300 mb-1;
+    @apply mb-1;
+    color: var(--color-text-base);
   }
 
   .timeline-card-year {
-    @apply text-sm text-gray-400;
+    @apply text-sm;
+    color: var(--color-text-muted);
   }
 }

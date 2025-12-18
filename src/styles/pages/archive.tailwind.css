@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer components {
+  .archive-page {
+    @apply max-w-6xl mx-auto px-6 py-16;
+    color: var(--color-text-base);
+  }
+
+  .archive-page .filter-bar {
+    @apply mb-10;
+  }
+
+  .archive-results {
+    @apply space-y-6;
+  }
+
+  .archive-item {
+    @apply border-b pb-4;
+    border-color: var(--color-border);
+  }
+
+  .archive-item-title {
+    @apply font-[var(--font-titles)] text-lg hover:underline;
+    color: var(--color-accent);
+  }
+
+  .archive-item-meta {
+    @apply text-xs mt-1;
+    color: var(--color-text-muted);
+  }
+
+  .archive-item-tags {
+    @apply flex gap-2 mt-1 flex-wrap;
+  }
+
+  .archive-tag {
+    @apply text-xs;
+    color: oklch(0.7 0.02 260);
+  }
+}

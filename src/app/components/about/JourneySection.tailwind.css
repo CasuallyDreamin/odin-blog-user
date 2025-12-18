@@ -15,7 +15,15 @@
   }
 
   .milestone {
-    @apply bg-neutral-900 p-6 rounded-lg shadow-md;
+    @apply p-6 rounded-lg shadow-md;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .milestone:hover {
+    @apply shadow-xl;
+    border-color: var(--color-accent);
   }
 
   .milestone-title {
@@ -24,10 +32,12 @@
   }
 
   .milestone-year {
-    @apply text-gray-400 text-sm ml-2;
+    color: var(--color-text-muted);
+    @apply text-sm ml-2;
   }
 
   .milestone-desc {
-    @apply text-gray-200 leading-relaxed;
+    color: var(--color-text-base);
+    @apply leading-relaxed;
   }
 }

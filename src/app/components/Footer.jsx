@@ -1,28 +1,65 @@
-'use client';
-
 import { Mail, Github, Twitter, Linkedin } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import './Footer.tailwind.css';
+
+const useSettings = () => {
+  const [settings] = useState({ blogName: 'My Refactored Blog', socialLinks: {
+    twitter: '#',
+    linkedin: '#',
+    github: '#',
+    email: 'mailto:info@example.com',
+  }});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {setLoading(false)}, 100); 
+    return () => clearTimeout(timer);
+  }, []);
+  
+  return { settings, loading };
+};
 
 export default function Footer() {
+  const { settings, loading } = useSettings();
+
+  if (loading) {
+    return (
+      <footer className="footer-base">
+        <div className="footer-loading-placeholder"></div>
+      </footer>
+    );
+  }
+
+  const socialLinks = settings.socialLinks || {};
+
+  const platformMap = [
+    { key: 'twitter', Icon: Twitter },
+    { key: 'linkedin', Icon: Linkedin },
+    { key: 'github', Icon: Github },
+    { key: 'email', Icon: Mail },
+  ];
+
   return (
-    <footer className="bg-neutral-900 p-6 text-gray-400">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="text-center md:text-left">
-          © 2025 Yasin — All Rights Reserved
+    <footer className="footer-base">
+      <div className="footer-content-container">
+        <div className="footer-copyright">
+          © 2025 {settings.blogName || 'Yasin'} — All Rights Reserved
         </div>
 
-        <div className="flex gap-4">
-          <a href="mailto:your@email.com" target="_blank" className="hover:text-cyan-400">
-            <Mail size={20} />
-          </a>
-          <a href="https://github.com/yourusername" target="_blank" className="hover:text-cyan-400">
-            <Github size={20} />
-          </a>
-          <a href="https://twitter.com/yourusername" target="_blank" className="hover:text-cyan-400">
-            <Twitter size={20} />
-          </a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" className="hover:text-cyan-400">
-            <Linkedin size={20} />
-          </a>
+        <div className="footer-links">
+          {platformMap
+            .filter(platform => socialLinks[platform.key])
+            .map(({ key, Icon }) => (
+              <a
+                key={key}
+                href={socialLinks[key]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-link"
+              >
+                <Icon size={20} />
+              </a>
+            ))}
         </div>
       </div>
     </footer>

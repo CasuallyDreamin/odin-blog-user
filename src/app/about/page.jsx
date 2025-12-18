@@ -9,17 +9,9 @@ import InterestsSection from '../components/about/InterestsSection';
 import InterestCard from '../components/about/InterestCard';
 import RouteTransition from '../components/RouteTransition';
 import Timeline from '../components/about/Timeline';
+import '../../styles/pages/about.tailwind.css';
 
 export default function AboutPage() {
-  const skills = [
-    { name: 'JavaScript', level: 'Advanced', description: 'Frontend & Node.js' },
-    { name: 'Python', level: 'Advanced', description: 'Data analysis & backend' },
-    { name: 'Next.js', level: 'Intermediate', description: 'Fullstack React framework' },
-    { name: 'TailwindCSS', level: 'Intermediate', description: 'Utility-first styling' },
-    { name: 'Verilog', level: 'Beginner', description: 'Hardware description & FPGA' },
-    { name: 'Game Design', level: 'Intermediate', description: 'Story-driven interactive systems' },
-  ];
-
   const interests = [
     { name: 'Philosophy' },
     { name: 'Mythology' },
@@ -31,37 +23,25 @@ export default function AboutPage() {
     { name: 'Fitness' },
   ];
 
-  const journeyItems = [
-    { title: 'Started Coding', description: 'Tinkered with HTML, CSS, and JS', year: '2015' },
-    { title: 'Built First Project', description: 'Created my first small app', year: '2017' },
-    { title: 'Joined Dev Community', description: 'Participated in open-source projects', year: '2019' },
-  ];
-
   return (
     <RouteTransition>
-      <HeroSection />
+      <div className="about-container">
+        <HeroSection />
 
-      <JourneySection />
+        <JourneySection />
 
-      <PhilosophySection />
+        <PhilosophySection />
 
-      <SkillsSection>
-        <div className="skills-grid">
-          {skills.map((skill, idx) => (
-            <SkillCard key={idx} skill={skill} />
-          ))}
-        </div>
-      </SkillsSection>
+        <SkillsSection />
 
-      <InterestsSection>
-        <div className="interests-grid">
-          {interests.map((interest, idx) => (
-            <InterestCard key={idx} interest={interest} />
-          ))}
-        </div>
-      </InterestsSection>
-
-      <Timeline items={journeyItems} />
+        <InterestsSection>
+          <div className="interests-grid">
+            {interests.map((interest, idx) => (
+              <InterestCard key={idx} interest={interest} />
+            ))}
+          </div>
+        </InterestsSection>
+      </div>
     </RouteTransition>
   );
 }

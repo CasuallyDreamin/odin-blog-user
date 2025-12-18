@@ -7,13 +7,26 @@
   }
 
   .hero-title {
-    @apply text-5xl md:text-6xl font-bold mb-4;
+    @apply text-5xl md:text-6xl font-bold mb-30 leading-tight;
     color: var(--color-primary);
     font-family: var(--font-titles);
   }
 
   .hero-subtitle {
-    @apply text-lg md:text-xl text-gray-300;
+    @apply text-2xl md:text-xl mb-8 max-w-3xl mx-auto;
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+  }
+
+  .hero-text {
+    @apply text-xl md:text-xl max-w-3xl mx-auto mb-6 leading-relaxed;
+    color: var(--color-text);
+    font-family: var(--font-body);
+  }
+
+  .hero-anchor {
+    @apply text-lg md:text-lg mt-8 opacity-70;
+    color: var(--color-secondary);
     font-family: var(--font-body);
   }
 }

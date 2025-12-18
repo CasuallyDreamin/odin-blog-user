@@ -2,7 +2,7 @@
 import './SkillCard.tailwind.css';
 import { motion } from 'framer-motion';
 
-export default function SkillCard({ skill }) {
+export default function SkillCard({ domain }) {
   return (
     <motion.div
       className="skill-card"
@@ -11,8 +11,14 @@ export default function SkillCard({ skill }) {
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
     >
-      <h3 className="skill-name">{skill.name}</h3>
-      <p className="skill-level">{skill.level}</p>
+      <h3 className="skill-domain">{domain.domain}</h3>
+      <ul className="skill-items">
+        {domain.items.map((item, idx) => (
+          <li key={idx} className="skill-item">
+            <span className="skill-name">{item.skill}</span> — <span className="skill-desc">{item.description}</span>
+          </li>
+        ))}
+      </ul>
     </motion.div>
   );
 }

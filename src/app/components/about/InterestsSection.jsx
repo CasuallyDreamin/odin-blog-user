@@ -7,7 +7,6 @@ export default function InterestsSection() {
     { name: 'Gaming' },
     { name: 'Mythology' },
     { name: 'Metal Music' },
-    // add more interests here
   ];
 
   return (

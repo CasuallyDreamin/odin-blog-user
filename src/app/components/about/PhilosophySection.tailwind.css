@@ -2,15 +2,16 @@
 
 @layer components {
   .philosophy-section {
-    @apply max-w-4xl mx-auto px-4 py-16 space-y-6;
+    @apply max-w-4xl mx-auto px-4 py-16 space-y-8;
   }
 
   .philosophy-section p {
-    @apply text-gray-200 leading-relaxed;
+    @apply leading-relaxed text-lg md:text-xl;
+    color: var(--color-text-base);
   }
 
   .section-title {
-    @apply text-3xl font-semibold mb-6;
+    @apply text-3xl md:text-4xl font-semibold mb-8;
     color: var(--color-primary);
   }
 }

@@ -3,12 +3,18 @@
 
 @import "tailwindcss";
 
+/* ------------------------------------------------ */
+/* --- COLOR VARIABLES (Dark Mode Default) --- */
+/* ------------------------------------------------ */
 @theme {
-  --color-primary: oklch(0.8 0.18 190);
-  --color-bg: oklch(0.15 0.02 260);
-  --color-surface: #171717;
-  --color-border: rgba(0,200,250);
-  --color-text-muted: oklch(0.7 0.02 260);
+  /* DARK MODE COLORS */
+  --color-primary: oklch(0.8 0.18 190);      /* Bright Cyan */
+  --color-bg: oklch(0.06 0.01 260);         /* Very Dark Background (bg-neutral-950 equivalent) */
+  --color-surface: #171717;                  /* Dark Surface for cards/containers */
+  --color-border: rgba(0,200,250, 0.5);      /* Cyan Border */
+  --color-text-base: oklch(0.9 0.01 260);    /* Light Text (text-neutral-100 equivalent) */
+  --color-text-muted: oklch(0.7 0.02 260);   /* Muted Text */
+  --color-accent: oklch(0.8 0.18 190);       /* Accent for primary elements */
   
   --font-header: 'Tron', sans-serif;
   --font-titles: 'Orbitron', sans-serif;
@@ -16,13 +22,23 @@
   --breakpoint-xl: 64rem;
 }
 
+.light {
+  --color-primary: oklch(0.3 0.18 190);
+  --color-bg: oklch(0.95 0.01 260);
+  --color-surface: #ffffff;
+  --color-border: rgba(0,100,125, 0.2);
+  --color-text-base: oklch(0.1 0.01 260);
+  --color-text-muted: oklch(0.5 0.02 260);
+  --color-accent: oklch(0.3 0.18 190);
+}
 
 html, body {
   font-family: var(--font-body);
   overflow-y:visible;
   scrollbar-gutter: stable;
-  @apply bg-neutral-950 text-neutral-100;
-
+  background-color: var(--color-bg);
+  color: var(--color-text-base);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .section-title,
@@ -31,6 +47,7 @@ html, body {
 label{
   font-family: var(--font-titles);
   letter-spacing: 0.08em;
+  color: var(--color-accent);
 }
 
 .post-preview,

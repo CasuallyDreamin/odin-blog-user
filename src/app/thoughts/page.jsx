@@ -1,48 +1,63 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Marquee from 'react-fast-marquee';
 import { motion } from 'framer-motion';
-import '../../styles/pages/thoughts.tailwind.css';
-
-const thoughts = [
-  {
-    category: 'Existence',
-    quotes: [
-      { text: 'I am not afraid of dying, I am afraid of never having lived truly.', author: '— Yasin' },
-      { text: 'Sometimes I stare too long into the void and it starts staring back softly.', author: '— Yasin' },
-      { text: 'To exist is to endure the weight of awareness.', author: '— Unknown' },
-    ],
-  },
-  {
-    category: 'Love',
-    quotes: [
-      { text: 'Love is the most elegant form of madness.', author: '— Yasin' },
-      { text: 'Her silence speaks the language of galaxies.', author: '— Yasin' },
-      { text: 'He loved her not for her light, but for her shadows.', author: '— Unknown' },
-    ],
-  },
-  {
-    category: 'Creation',
-    quotes: [
-      { text: 'Every idea is a rebellion against entropy.', author: '— Yasin' },
-      { text: 'I build worlds to escape the dull mercy of reality.', author: '— Yasin' },
-      { text: 'Art is how gods apologize to mortals.', author: '— Unknown' },
-    ],
-  },
-];
+import api from '@/app/lib/api';
+import '@/styles/pages/thoughts.tailwind.css';
 
 export default function ThoughtsPage() {
+  const [quotes, setQuotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchQuotes() {
+      setLoading(true);
+      try {
+        const res = await api.get('/quotes');
+        const data = (res.data.quotes || []).map(q => ({
+          id: q.id,
+          text: q.content,
+          author: q.author || '— Unknown',
+          tags: q.tags?.map(t => t.name) || [],
+        }));
+
+        setQuotes(data);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load quotes.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchQuotes();
+  }, []);
+
+  if (loading) return <div className="thoughts-loading">Loading quotes…</div>;
+  if (error) return <div className="thoughts-error">{error}</div>;
+
+  const grouped = quotes.reduce((acc, quote) => {
+    const category = quote.tags[0] || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(quote);
+    return acc;
+  }, {});
+
+  const categories = Object.keys(grouped);
+
   return (
     <section className="thoughts-page">
-      {thoughts.map((section, i) => (
+      {categories.map((category, i) => (
         <motion.div
-          key={section.category}
+          key={category}
           className="category-section"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.2, duration: 0.6 }}
         >
-          <h2 className="category-title">{section.category}</h2>
+          <h2 className="category-title">{category}</h2>
 
           <Marquee
             speed={35}
@@ -50,12 +65,10 @@ export default function ThoughtsPage() {
             pauseOnHover={true}
             direction={i % 2 === 0 ? 'left' : 'right'}
           >
-            {section.quotes.map((quote, idx) => (
-              <div key={idx} className="quote-item flex flex-col gap-1 mx-8 min-w-max">
+            {grouped[category].map((quote) => (
+              <div key={quote.id} className="quote-item">
                 <p className="quote-text">“{quote.text}”</p>
-                <p className="quote-author">
-                  {quote.author}
-                </p>
+                <p className="quote-author">{quote.author}</p>
               </div>
             ))}
           </Marquee>

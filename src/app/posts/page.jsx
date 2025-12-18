@@ -6,7 +6,28 @@ import { motion } from 'framer-motion';
 import api from '../lib/api';
 import PostCard from '../components/posts/PostCard';
 import FilterBar from '../components/FilterBar';
-import './posts.tailwind.css';
+// Updated import path to centralized styles
+import '../../styles/pages/postpage.tailwind.css'; 
+
+/**
+ * Utility function to extract a clean text excerpt from HTML content.
+ */
+function getExcerptFromHtml(htmlContent, maxLength = 150) {
+  if (!htmlContent) return '...';
+  
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlContent;
+  
+  const textContent = tempDiv.textContent || tempDiv.innerText || '';
+  
+  const trimmedText = textContent.trim();
+  
+  if (trimmedText.length > maxLength) {
+    return trimmedText.substring(0, maxLength).trim() + '...';
+  }
+  return trimmedText;
+}
+
 
 export default function PostsPage() {
   const router = useRouter();
@@ -15,17 +36,14 @@ export default function PostsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // filter state
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [sortOrder, setSortOrder] = useState('desc');
 
-  // full unfiltered lists
   const [allCategories, setAllCategories] = useState([]);
   const [allTags, setAllTags] = useState([]);
 
-  // Listen to global search from Navbar
   useEffect(() => {
     const handleGlobalSearch = (e) => setSearchTerm(e.detail ?? '');
     window.addEventListener('globalSearch', handleGlobalSearch);
@@ -38,7 +56,16 @@ export default function PostsPage() {
     async function fetchPosts() {
       setLoading(true);
       try {
-        const res = await api.get('/posts', { params: { sort: sortOrder } });
+        const params = {
+            sort: sortOrder,
+            search: searchTerm,
+            category: selectedCategories.join(','),
+            tag: selectedTags.join(','),
+        };
+
+        Object.keys(params).forEach(key => (params[key] === '' || params[key] === undefined) && delete params[key]);
+
+        const res = await api.get('/posts', { params });
         if (!mounted) return;
 
         const normalized = (res.data.posts || [])
@@ -47,12 +74,13 @@ export default function PostsPage() {
             ...p,
             tags: (p.tags || []).map(t => (typeof t === 'string' ? t : t?.name || String(t))),
             categories: p.categories || [],
+            // Inject clean excerpt
+            excerpt: getExcerptFromHtml(p.content, 180),
           }));
 
         if (!mounted) return;
         setPosts(normalized);
 
-        // Extract full category/tag lists from all posts
         const categoriesSet = new Set(normalized.flatMap(p => p.categories?.map(c => c.name) || []));
         const tagsSet = new Set(normalized.flatMap(p => p.tags || []));
 
@@ -69,32 +97,9 @@ export default function PostsPage() {
 
     fetchPosts();
     return () => { mounted = false; };
-  }, [sortOrder]);
+  }, [sortOrder, searchTerm, selectedCategories, selectedTags]); 
 
-  // filtered posts based on search + selected filters
-  const filteredPosts = useMemo(() => {
-    return posts.filter((p) => {
-      const postCategories = (p.categories || []).map(c => c.name.toLowerCase());
-      const postTags = (p.tags || []).map(t => t.toLowerCase());
-      const search = searchTerm.toLowerCase();
-
-      const matchSearch =
-        !searchTerm ||
-        p.title.toLowerCase().includes(search) ||
-        postCategories.some(c => c.includes(search)) ||
-        postTags.some(t => t.includes(search));
-
-      const matchCategory =
-        selectedCategories.length === 0 ||
-        selectedCategories.some(c => postCategories.includes(c.toLowerCase()));
-
-      const matchTag =
-        selectedTags.length === 0 ||
-        selectedTags.some(t => postTags.includes(t.toLowerCase()));
-
-      return matchSearch && matchCategory && matchTag;
-    });
-  }, [posts, searchTerm, selectedCategories, selectedTags]);
+  const filteredPosts = posts; 
 
   const handlePostClick = (post) => router.push(`/posts/${post.slug}`);
 
@@ -127,11 +132,11 @@ export default function PostsPage() {
         onSortChange={setSortOrder}
       />
 
-      {filteredPosts.length === 0 ? (
-        <p className="text-gray-500 mt-8">No posts match your filters.</p>
+      {posts.length === 0 ? (
+        <p className="text-[var(--color-text-muted)] mt-8">No posts match your filters.</p>
       ) : (
         <ul className="posts-grid">
-          {filteredPosts.map(post => (
+          {posts.map(post => (
             <PostCard key={post.id} post={post} onClick={() => handlePostClick(post)} />
           ))}
         </ul>

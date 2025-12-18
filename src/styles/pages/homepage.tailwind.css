@@ -6,7 +6,15 @@
   }
 
   .hero-section {
-    @apply text-center space-y-4 py-20 bg-gradient-to-b from-neutral-900 via-neutral-950 to-neutral-900 rounded-lg relative overflow-hidden;
+    /* Refactored: Replaced hardcoded neutral colors with CSS variables for theme-aware gradient */
+    @apply text-center space-y-4 py-20 rounded-lg relative overflow-hidden;
+    background: linear-gradient(to bottom, 
+      var(--color-surface), 
+      var(--color-bg) 50%, 
+      var(--color-surface)
+    );
+    border: 1px solid var(--color-border);
+    transition: background 0.3s, border-color 0.3s;
   }
 
   .hero-title {
@@ -15,7 +23,9 @@
   }
 
   .hero-subtitle {
-    @apply text-xl text-gray-300;
+    @apply text-xl;
+    /* Refactored: Replaced text-gray-300 with theme variable */
+    color: var(--color-text-muted);
   }
 
   .section-title {

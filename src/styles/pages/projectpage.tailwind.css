@@ -1,50 +1,45 @@
 @import "tailwindcss";
 
 @layer components {
-  .project-page {
-    @apply max-w-4xl mx-auto px-4 py-16;
+  .projects-page {
+    @apply max-w-6xl mx-auto px-6 py-16;
+    color: var(--color-text-base);
   }
 
-  .project-title {
-    @apply text-5xl font-bold mb-6;
-    color: var(--color-primary);
+  .projects-loading,
+  .projects-error {
+    @apply text-center py-10 text-sm;
+    color: var(--color-text-muted);
   }
 
-  .project-image {
-    @apply w-full rounded-lg shadow-md mb-6;
+  .projects-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 
-  .project-description {
-    @apply text-lg text-gray-300 mb-4;
+  .project-card {
+    @apply p-6 rounded-lg border shadow-sm transition-colors duration-200;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
   }
 
-  .project-tech {
-    @apply flex flex-wrap gap-2 mb-6;
+  .project-card-title {
+    @apply font-[var(--font-titles)] text-lg mb-2;
+    color: var(--color-accent);
   }
 
-  .tech-badge {
-    @apply bg-neutral-800 text-gray-100 px-3 py-1 rounded-full text-sm;
-    border: 1px solid var(--color-border);
+  .project-card-description {
+    @apply text-sm mb-2;
+    color: var(--color-text-muted);
   }
 
-  .project-links {
-    @apply flex gap-4 mb-8;
+  .project-card-tags {
+    @apply flex gap-2 flex-wrap text-xs;
   }
 
-  .project-link {
-    @apply px-4 py-2 rounded text-black font-semibold transition;
-    background-color: var(--color-primary);
-  }
-
-  .project-link:hover {
-    @apply opacity-80;
-  }
-
-  .project-content {
-    @apply text-gray-200 leading-relaxed space-y-4;
-  }
-
-  .back-button {
-    @apply mb-6 px-4 py-2 bg-neutral-900 text-white rounded hover:bg-neutral-600 transition;
+  .project-card-tag {
+    @apply px-2 py-1 rounded;
+    background-color: var(--color-bg);
+    color: var(--color-accent);
   }
 }

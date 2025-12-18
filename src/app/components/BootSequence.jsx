@@ -35,7 +35,6 @@ export default function IntroSequence({ onComplete }) {
         />
       </motion.h1>
 
-      {/* Optional tagline */}
       <motion.p
         className="mt-4 text-lg sm:text-xl text-gray-300"
         initial={{ opacity: 0, y: 10 }}

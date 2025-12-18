@@ -20,15 +20,10 @@ export default function Article({ post }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-        {post.layout?.div?.h1 && <h2>{post.layout.div.h1}</h2>}
-        {post.layout?.div?.p && <p>{post.layout.div.p}</p>}
-        {post.layout?.ol?.li?.length > 0 && (
-          <ol>
-            {post.layout.ol.li.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ol>
-        )}
+        <div
+            className="prose dark:prose-invert max-w-none w-full mx-auto"
+            dangerouslySetInnerHTML={{ __html: post.content }} 
+        />
       </motion.div>
     </article>
   );

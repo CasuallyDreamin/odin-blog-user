@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer components {
+  .footer-base {
+    @apply p-6;
+    background-color: var(--color-surface);
+    color: var(--color-text-muted);
+  }
+
+  .footer-loading-placeholder {
+    @apply h-4 w-32 rounded animate-pulse mx-auto md:mx-0;
+    background-color: var(--color-bg);
+  }
+
+  .footer-content-container {
+    @apply flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto;
+  }
+
+  .footer-copyright {
+    @apply text-center md:text-left text-sm;
+  }
+
+  .footer-links {
+    @apply flex gap-4;
+  }
+
+  .footer-social-link {
+    @apply transition-colors duration-200;
+    color: var(--color-text-muted);
+  }
+
+  .footer-social-link:hover {
+    color: var(--color-accent);
+  }
+}

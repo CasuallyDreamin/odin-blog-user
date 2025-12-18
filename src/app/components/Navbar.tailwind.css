@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@layer components {
+  /* -------------------------------------------------- */
+  /* NAVBAR BASE */
+  /* -------------------------------------------------- */
+  .navbar-base {
+    @apply w-full p-4 sticky top-0 z-50 duration-300;
+    background-color: var(--color-surface);
+  }
+
+  .navbar-main {
+    @apply flex flex-col md:flex-row justify-between items-center gap-3 max-w-7xl mx-auto;
+  }
+
+  /* -------------------------------------------------- */
+  /* LOADING STATE */
+  /* -------------------------------------------------- */
+  .navbar-loading {
+    @apply flex justify-between items-center p-4 sticky top-0 z-50;
+    background-color: var(--color-bg);
+  }
+
+  .navbar-loading-title {
+    @apply h-5 w-24 rounded animate-pulse;
+    background-color: var(--color-surface);
+  }
+
+  .navbar-loading-links {
+    @apply hidden md:flex space-x-4;
+  }
+
+  .navbar-loading-link {
+    @apply h-5 w-16 rounded animate-pulse;
+    background-color: var(--color-surface);
+  }
+
+  .navbar-loading-icon {
+    @apply h-5 w-8 rounded animate-pulse;
+    background-color: var(--color-surface);
+  }
+
+  /* -------------------------------------------------- */
+  /* LOGO */
+  /* -------------------------------------------------- */
+  .navbar-logo-container {
+    @apply font-bold text-xl tracking-wider;
+    color: var(--color-accent);
+  }
+
+  .navbar-logo-img {
+    @apply h-8 object-contain;
+  }
+
+  /* -------------------------------------------------- */
+  /* DESKTOP NAV LINKS */
+  /* -------------------------------------------------- */
+  .navbar-desktop-links {
+    @apply hidden md:flex flex-wrap justify-center space-x-4 text-sm;
+  }
+
+  .nav-link-base {
+    @apply transition-colors duration-200;
+  }
+
+  .nav-link-inactive {
+    color: var(--color-text-muted);
+  }
+
+  .nav-link-inactive:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link-active {
+    @apply font-semibold;
+    color: var(--color-accent);
+  }
+
+  /* -------------------------------------------------- */
+  /* UTILITIES */
+  /* -------------------------------------------------- */
+  .navbar-utilities {
+    @apply flex items-center space-x-4;
+  }
+
+  .navbar-mobile-toggle-wrapper {
+    @apply md:hidden;
+  }
+
+  .navbar-mobile-toggle-btn {
+    color: var(--color-text-muted);
+  }
+  .navbar-mobile-toggle-btn:hover {
+    color: var(--color-accent);
+  }
+
+  /* -------------------------------------------------- */
+  /* MOBILE DROPDOWN */
+  /* -------------------------------------------------- */
+  .navbar-mobile-dropdown {
+    @apply hidden;
+  }
+
+  .menu-open .navbar-mobile-dropdown {
+    @apply flex flex-col w-full p-4 rounded-lg absolute left-0 right-0 shadow-xl space-y-2 md:hidden;
+    top: calc(64px); /* aligned with navbar height */
+    background-color: var(--color-surface);
+  }
+
+  .navbar-mobile-close-btn {
+    @apply self-end mb-2;
+    color: var(--color-text-muted);
+  }
+  .navbar-mobile-close-btn:hover {
+    color: var(--color-accent);
+  }
+
+  /* -------------------------------------------------- */
+  /* SEARCH INPUT */
+  /* -------------------------------------------------- */
+  .navbar-mobile-search-input {
+    @apply w-full px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 transition duration-200 ease-in-out mb-2;
+    background-color: var(--color-bg);
+    border-color: var(--color-border);
+    color: var(--color-text-base);
+  }
+
+  .navbar-mobile-search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* -------------------------------------------------- */
+    /* MOBILE LINKS */
+    /* -------------------------------------------------- */
+  .navbar-mobile-link-list {
+    @apply flex flex-col space-y-2;
+  }
+
+  .nav-mobile-link-item {
+    @apply block px-2 py-1 rounded transition-colors;
+    color: var(--color-text-muted);
+  }
+
+  .nav-mobile-link-item:hover {
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+  }
+}

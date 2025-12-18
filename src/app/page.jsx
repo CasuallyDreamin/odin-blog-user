@@ -4,15 +4,30 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import IntroSequence from './components/BootSequence';
 import PostCard from './components/posts/PostCard';
-import PinnedPostCard from './components/posts/PinnedPostCard';
 import QuoteCard from './components/thoughts/QuoteCard';
 import api from './lib/api';
 import '../styles/pages/homepage.tailwind.css';
 
+function getExcerptFromHtml(htmlContent, maxLength = 150) {
+  if (!htmlContent) return '...';
+  
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlContent;
+  
+  const textContent = tempDiv.textContent || tempDiv.innerText || '';
+  
+  const trimmedText = textContent.trim();
+  
+  if (trimmedText.length > maxLength) {
+    return trimmedText.substring(0, maxLength).trim() + '...';
+  }
+  return trimmedText;
+}
+
+
 export default function HomePage() {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
-  const [pinnedPost, setPinnedPost] = useState(null);
   const [quote, setQuote] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,11 +47,18 @@ export default function HomePage() {
 
   const fetchData = async () => {
     try {
-      const resPosts = await api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc' } });
-      const publishedPosts = (resPosts.data.posts || []).filter(p => p.published);
 
-      setPinnedPost(publishedPosts.find(p => p.layout?.pinned) || null);
-      setPosts(publishedPosts.filter(p => !p.layout?.pinned));
+      const resPosts = await api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc', search: searchTerm } });
+      
+      const publishedPosts = (resPosts.data.posts || [])
+        .filter(p => p.published)
+        .map(p => ({
+          ...p,
+
+          excerpt: getExcerptFromHtml(p.content, 180)
+        }));
+
+      setPosts(publishedPosts); 
 
       const resSettings = await api.get('/settings');
       setQuote(resSettings.data.quote || '');
@@ -48,6 +70,12 @@ export default function HomePage() {
     }
   };
 
+  useEffect(() => {
+    if (!showIntro) {
+      fetchData();
+    }
+  }, [searchTerm]); 
+
   const handleIntroComplete = async () => {
     sessionStorage.setItem('seenIntro', 'true');
     setShowIntro(false);
@@ -56,15 +84,7 @@ export default function HomePage() {
 
   const handlePostClick = (post) => router.push(`/posts/${post.slug}`);
 
-  const filteredPosts = useMemo(() => {
-    if (!searchTerm) return posts;
-    const term = searchTerm.toLowerCase();
-    return posts.filter(p => 
-      p.title.toLowerCase().includes(term) ||
-      (p.categories?.some(c => c.name.toLowerCase().includes(term))) ||
-      (p.tags?.some(t => String(t).toLowerCase().includes(term)))
-    );
-  }, [posts, searchTerm]);
+  const filteredPosts = posts;
 
   if (showIntro) return <IntroSequence onComplete={handleIntroComplete} />;
   if (loading) return <div className="loading"></div>;
@@ -77,17 +97,10 @@ export default function HomePage() {
         <p>Coding, writing, and chaos</p>
       </section>
 
-      {pinnedPost && (
-        <section className="pinned-post-section">
-          <h2 className="section-title">Important</h2>
-          <PinnedPostCard post={pinnedPost} onClick={handlePostClick} />
-        </section>
-      )}
-
       <section className="posts-grid-section">
         <h2 className="section-title">Latest Posts</h2>
         {filteredPosts.length === 0 ? (
-          <p className="text-gray-500">No posts match your search.</p>
+          <p className="text-[var(--color-text-muted)]">No posts match your search.</p>
         ) : (
           <ul className="posts-grid">
             {filteredPosts.map(post => (

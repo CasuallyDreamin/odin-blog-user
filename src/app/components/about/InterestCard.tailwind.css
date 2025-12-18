@@ -2,6 +2,17 @@
 
 @layer components {
   .interest-card {
-    @apply p-4 bg-neutral-800 rounded-lg text-center font-semibold text-gray-200 shadow-sm hover:shadow-md transition;
+    @apply p-4 rounded-lg text-center font-semibold shadow-sm transition-all duration-200 ease-in-out cursor-pointer;
+    
+    background-color: var(--color-surface);
+    
+    color: var(--color-text-base);
+    
+    border: 1px solid var(--color-border);
+  }
+  
+  .interest-card:hover {
+    @apply shadow-md scale-[1.02];
+    border-color: var(--color-accent);
   }
 }

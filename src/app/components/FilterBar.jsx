@@ -1,10 +1,33 @@
-'use client';
-
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import useSearchBar from '@/app/hooks/useSearchBar';
 import './FilterBar.tailwind.css';
+
+// Mock implementation for useSearchBar to resolve import error
+const useSearchBar = ({ initialValue, debounceMs, onSearchChange }) => {
+  const [search, setSearch] = useState(initialValue);
+  const debouncedValue = useRef(initialValue);
+
+  // Debouncing logic
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (search !== debouncedValue.current) {
+        debouncedValue.current = search;
+        onSearchChange(search);
+      }
+    }, debounceMs);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search, debounceMs, onSearchChange]);
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  return { search, handleChange };
+};
 
 export default function FilterBar({
   tags = [],

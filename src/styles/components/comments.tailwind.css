@@ -11,7 +11,8 @@
   }
 
   .no-comments {
-    @apply text-gray-500 italic mb-4;
+    @apply italic mb-4;
+    color: var(--color-text-muted);
   }
 
   .comments-list {
@@ -19,23 +20,29 @@
   }
 
   .comment-item {
-    @apply p-4 bg-neutral-800 rounded;
+    @apply p-4 rounded;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
   }
 
   .comment-author {
     @apply font-semibold;
+    color: var(--color-primary);
   }
 
   .comment-date {
-    @apply text-gray-400 text-sm mb-2;
+    @apply text-sm mb-2;
+    color: var(--color-text-muted);
   }
 
   .comment-body {
-    @apply text-gray-200;
+    color: var(--color-text-base);
   }
 
   .comment-form {
-    @apply bg-neutral-900 p-6 rounded-lg space-y-4;
+    @apply p-6 rounded-lg space-y-4;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
   }
 
   .comment-form-title {
@@ -45,12 +52,20 @@
 
   .input-field,
   .text-area {
-    @apply w-full px-3 py-2 rounded bg-neutral-800 border border-gray-700 focus:outline-none focus:ring-2;
+    @apply w-full px-3 py-2 rounded border focus:outline-none focus:ring-2;
+    background-color: var(--color-bg);
+    border-color: var(--color-border);
+    color: var(--color-text-base);
     --tw-ring-color: var(--color-primary);
   }
 
   .submit-button {
-    @apply px-4 py-2 text-black font-semibold rounded hover:bg-cyan-500 transition;
-    background-color: var(--color-primary);
+    @apply px-4 py-2 font-semibold rounded transition;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+  
+  .submit-button:hover {
+    @apply opacity-90;
   }
 }

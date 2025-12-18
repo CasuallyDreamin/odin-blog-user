@@ -4,19 +4,34 @@ import { motion } from 'framer-motion';
 
 const milestones = [
   {
-    title: 'Early Days',
-    description: 'I started exploring coding and technology, fueled by curiosity and chaos.',
-    year: '2015-2018',
+    title: 'First Encounter',
+    description: 'At thirteen, I wrote my first piece of software, driven purely by curiosity.',
+    year: '2013',
   },
   {
-    title: 'Professional Growth',
-    description: 'I honed my skills in software development, web projects, and problem solving.',
-    year: '2019-2022',
+    title: 'Game Engine Project',
+    description: 'At seventeen, I dove into a C++/C game engine project for two years. It became a mess due to limited system design knowledge, teaching me the value of planning and structure.',
+    year: '2017-2019',
   },
   {
-    title: 'Current Focus',
-    description: 'I’m combining coding, writing, and creative exploration to build meaningful experiences.',
-    year: '2023-Present',
+    title: 'Data Analysis',
+    description: 'I focused on Python for data analysis and visualization, freelancing for a year while learning how constraints shape real work.',
+    year: '2019-2020',
+  },
+  {
+    title: 'Web Development & Study',
+    description: 'I committed to web development, completing The Odin Project, Harvard courses, and my university studies more seriously. Built websites for small businesses and internal tools.',
+    year: '2020-2022',
+  },
+  {
+    title: 'Systems, Linux & Collaboration',
+    description: 'Explored Linux (Arch → Debian) for better workflow and server control. Developed web projects for private clients and collaborated with teams from university and other institutions. Also taught English (B2–C1) to sustain myself.',
+    year: '2022-Present',
+  },
+  {
+    title: 'Current Ambition',
+    description: 'I code to create and express ideas where traditional art fails me. My ultimate goal is to build my own game to share philosophy and gather a community of developers and gamers.',
+    year: 'Present',
   },
 ];
 
@@ -34,7 +49,9 @@ export default function JourneySection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: idx * 0.2 }}
           >
-            <h3 className="milestone-title">{m.title} <span className="milestone-year">{m.year}</span></h3>
+            <h3 className="milestone-title">
+              {m.title} <span className="milestone-year">{m.year}</span>
+            </h3>
             <p className="milestone-desc">{m.description}</p>
           </motion.div>
         ))}

@@ -2,8 +2,14 @@
 
 @layer components {
   .project-card {
-    @apply bg-neutral-900 p-6 rounded-lg shadow-md hover:shadow-lg transition flex flex-col gap-3;
+    @apply p-6 rounded-lg shadow-md hover:shadow-lg transition flex flex-col gap-3;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-left: 4px solid var(--color-primary);
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent);
   }
 
   .project-image {
@@ -16,7 +22,7 @@
   }
 
   .project-description {
-    @apply text-gray-200;
+    color: var(--color-text-base);
   }
 
   .tech-stack {
@@ -24,10 +30,18 @@
   }
 
   .tech-item {
-    @apply bg-neutral-800 text-gray-200 px-2 py-1 rounded text-sm;
+    @apply px-2 py-1 rounded text-sm;
+    background-color: var(--color-bg);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
   }
 
   .project-link {
-    @apply mt-2 text-cyan-400 hover:text-cyan-500 underline;
+    @apply mt-2 underline;
+    color: var(--color-accent);
+  }
+  
+  .project-link:hover {
+    color: var(--color-primary);
   }
 }
