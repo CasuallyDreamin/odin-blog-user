@@ -35,9 +35,9 @@ const milestones = [
   },
 ];
 
-export default function JourneySection() {
+export default function JourneySection( { className }) {
   return (
-    <section className="journey-section">
+    <section className={`skills-section ${className || ''}`}>
       <h2 className="section-title">My Journey</h2>
       <div className="timeline">
         {milestones.map((m, idx) => (

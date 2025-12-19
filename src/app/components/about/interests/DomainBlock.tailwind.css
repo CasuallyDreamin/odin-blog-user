@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer components {
+  .domain-block {
+    @apply space-y-4;
+  }
+
+  .domain-title {
+    @apply text-xl md:text-2xl font-semibold mb-2;
+    font-family: var(--font-titles);
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+  }
+
+  .domain-items {
+    @apply flex flex-wrap gap-3;
+  }
+}

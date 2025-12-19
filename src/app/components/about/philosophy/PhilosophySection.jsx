@@ -1,9 +1,9 @@
 'use client';
 import './PhilosophySection.tailwind.css';
 
-export default function PhilosophySection() {
+export default function PhilosophySection( { className }) {
   return (
-    <section className="philosophy-section">
+    <section className={`skills-section ${className || ''}`}>
       <h2 className="section-title">Philosophy</h2>
       <p>
         I believe creation is a language of thought. When traditional forms of expression fail,

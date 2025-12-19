@@ -1,42 +1,232 @@
 export const skills = [
   {
     domain: 'DevOps / Systems & Automation',
-    items: [
-      { skill: 'Linux', description: 'Workflow optimization, server management, system configuration (Arch → Debian)' },
-      { skill: 'Git / GitFlow / GitHub / GitLab', description: 'Version control, collaborative development, branching strategies' },
-      { skill: 'Docker / Vercel / CI/CD', description: 'Containerization, deployments, automated pipelines, continuous integration' },
-      { skill: 'Scripting (Python, JavaScript)', description: 'Automation, maintenance, small tooling, workflow enhancement' },
-      { skill: 'Testing & Quality Control', description: 'Unit/integration testing, ensuring functional and stable deployments' },
-      { skill: 'Systems Design & Architecture', description: 'Design patterns, scalable systems, structured workflows' },
+    categories: [
+      {
+        name: 'Operating Systems & Tooling',
+        items: [
+          { name: 'Linux', notes: 'Daily workflow, system configuration (Arch → Debian)' },
+        ],
+      },
+      {
+        name: 'Version Control',
+        items: [
+          { name: 'Git' },
+          { name: 'GitFlow' },
+          { name: 'GitHub' },
+          { name: 'GitLab' },
+        ],
+      },
+      {
+        name: 'Deployment & CI/CD',
+        items: [
+          { name: 'Docker' },
+          { name: 'CI/CD Pipelines' },
+          { name: 'Vercel' },
+        ],
+      },
+      {
+        name: 'Automation & Scripting',
+        items: [
+          { name: 'Python (Scripting)' },
+          { name: 'JavaScript (Scripting)' },
+        ],
+      },
+      {
+        name: 'Quality & Architecture',
+        items: [
+          { name: 'Testing (Unit / Integration)' },
+          { name: 'Quality Control' },
+          { name: 'System Design' },
+          { name: 'Design Patterns' },
+        ],
+      },
     ],
   },
+
   {
     domain: 'Web Development',
-    items: [
-      { skill: 'Languages', description: 'JavaScript, TypeScript, Python, C/C++ for small tools and prototypes' },
-      { skill: 'Frontend', description: 'Next.js, React, EJS, Django Templates/CBV, Zustand, TanStack, Vite, Webpack — dynamic, responsive UI development' },
-      { skill: 'Styling / UI', description: 'TailwindCSS, SHADCN, CSS, SCSS, Bootstrap, PostCSS — component styling, responsive layouts, utility-first design' },
-      { skill: 'Backend & APIs', description: 'Django, Express.js, NestJS — building APIs, automation, maintenance, and security; PostgreSQL, MySQL, SQLite, Prisma — database modeling, queries, migrations' },
+    categories: [
+      {
+        name: 'Core Languages',
+        items: [
+          { name: 'JavaScript' },
+          { name: 'TypeScript' },
+          { name: 'Python' },
+          { name: 'C/C++ (Tooling / Prototypes)' },
+        ],
+      },
+      {
+        name: 'Frontend',
+        items: [
+          { name: 'Next.js' },
+          { name: 'React' },
+          { name: 'EJS' },
+          { name: 'Django Templates / CBV' },
+          { name: 'Zustand' },
+          { name: 'TanStack' },
+          { name: 'Vite' },
+          { name: 'Webpack' },
+        ],
+      },
+      {
+        name: 'Styling & UI',
+        items: [
+          { name: 'CSS' },
+          { name: 'TailwindCSS' },
+          { name: 'SHADCN' },
+          { name: 'SCSS' },
+          { name: 'Bootstrap' },
+          { name: 'PostCSS' },
+        ],
+      },
+      {
+        name: 'Backend & APIs',
+        items: [
+          { name: 'Django' },
+          { name: 'Express.js' },
+          { name: 'NestJS' },
+          { name: 'RESTful APIs' },
+          { name: 'Security (Basic Practices)' },
+          { name: 'Automation & Maintenance' },
+        ],
+      },
+      {
+        name: 'Databases & ORMs',
+        items: [
+          { name: 'PostgreSQL' },
+          { name: 'MySQL' },
+          { name: 'SQLite' },
+          { name: 'Prisma' },
+          { name: 'Django ORM' },
+        ],
+      },
     ],
   },
+
   {
     domain: 'Data Analysis & Visualization',
-    items: [
-      { skill: 'Languages & Tools', description: 'Python, R, SQL, Excel, Jupyter Notebook — data extraction, cleaning, and transformation' },
-      { skill: 'Libraries & Platforms', description: 'Pandas, NumPy, Matplotlib, PowerBI, Tableau — analysis, visualization, dashboards, reporting' },
+    categories: [
+      {
+        name: 'Languages & Environments',
+        items: [
+          { name: 'Python' },
+          { name: 'R' },
+          { name: 'SQL' },
+          { name: 'Excel' },
+          { name: 'Jupyter Notebook' },
+        ],
+      },
+      {
+        name: 'Libraries & Platforms',
+        items: [
+          { name: 'Pandas' },
+          { name: 'NumPy' },
+          { name: 'Matplotlib' },
+          { name: 'PowerBI' },
+          { name: 'Tableau' },
+        ],
+      },
     ],
   },
+
   {
-    domain: 'IoT / Embedded & Low-Level',
-    items: [
-      { skill: 'Platforms', description: 'Raspberry Pi, Arduino — hobbyist projects, hardware interaction, sensor integration' },
+    domain: 'Web Presence & Optimization',
+    categories: [
+      {
+        name: 'Non-functional Quality',
+        items: [
+          { name: 'SEO Fundamentals' },
+          { name: 'Performance Optimization' },
+          { name: 'Accessibility (Basic)' },
+          { name: 'Analytics Awareness' },
+        ],
+      },
     ],
   },
+
   {
     domain: 'Game Development & Simulation',
+    categories: [
+      {
+        name: 'Languages & Engines',
+        items: [
+          { name: 'C/C++' },
+          { name: 'Godot' },
+          { name: 'Unity' },
+          { name: 'Custom Engines' },
+        ],
+      },
+      {
+        name: 'Design & Simulation',
+        items: [
+          { name: 'Mechanics Design' },
+          { name: 'Physics Simulation' },
+        ],
+      },
+    ],
+  },
+
+  {
+    domain: 'IoT / Embedded & Low-Level (Hobby)',
+    categories: [
+      {
+        name: 'Platforms',
+        items: [
+          { name: 'Raspberry Pi' },
+          { name: 'Arduino' },
+        ],
+      },
+    ],
+  },
+];
+export const interests = [
+  {
+    domain: 'Intellectual & Philosophical',
     items: [
-      { skill: 'Languages', description: 'C/C++ — engine prototyping, performance-focused development' },
-      { skill: 'Engines', description: 'Godot, Unity, Custom Engines — interactive systems, mechanics design, physics simulations' },
+      { name: 'Philosophy', notes: 'Exploring existence, ethics, and human nature' },
+      { name: 'Psychology & Human Behavior', notes: 'Understanding minds, cognition, and motivation' },
+      { name: 'Existential Literature', notes: 'Camus, Dostoevsky, Jung, and dark fiction' },
+      { name: 'Mythology & Archetypes', notes: 'Symbols, myths, and the hidden patterns of stories' },
+      { name: 'Science Fiction & Fantasy', notes: 'Speculative worlds, narrative design, storytelling' },
+    ],
+  },
+  {
+    domain: 'Technology & Creative Systems',
+    items: [
+      { name: 'AI & Neural Nets', notes: 'Experimenting with algorithms, creativity, and intelligence' },
+      { name: 'Game Design & Development', notes: 'Mechanics, engines, interactive storytelling' },
+      { name: 'Digital Art & Music Production', notes: 'Creating immersive and expressive works' },
+      { name: 'Coding for Self-Expression', notes: 'From tools to prototypes to creative systems' },
+    ],
+  },
+  {
+    domain: 'Music & Sound',
+    items: [
+      { name: 'Metal Music', notes: 'Listening, analyzing, and drawing inspiration' },
+      { name: 'Experimental & Ambient Sounds', notes: 'Noise, industrial, dark ambient, composition' },
+    ],
+  },
+  {
+    domain: 'Gaming & Strategy',
+    items: [
+      { name: 'Gaming', notes: 'Exploring worlds, tactics, and challenges' },
+      { name: 'Puzzle & Strategy Games', notes: 'Chess, tactical, and logic-based games' },
+    ],
+  },
+  {
+    domain: 'Physical & Personal Mastery',
+    items: [
+      { name: 'Fitness & Training', notes: 'Strength, endurance, and self-discipline' },
+      { name: 'Martial Arts & Combat Systems', notes: 'Movement, strategy, and discipline' },
+      { name: 'Biohacking & Self-Optimization', notes: 'Tracking, performance, and lifestyle experiments' },
+    ],
+  },
+  {
+    domain: 'History, Symbols & Esoterica',
+    items: [
+      { name: 'History & Mythic Patterns', notes: 'Understanding cultural archetypes and events' },
+      { name: 'Esoteric Knowledge & Symbolism', notes: 'Occult, mystical, and symbolic exploration' },
     ],
   },
 ];

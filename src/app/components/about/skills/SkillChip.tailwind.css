@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer components {
+  .skill-chip {
+    @apply px-3 py-2 rounded-md text-sm md:text-base font-medium transition-all duration-200 ease-in-out cursor-default select-none;
+    
+    background-color: var(--color-surface);
+    color: var(--color-text-base);
+    border: 1px solid var(--color-border);
+  }
+
+  .skill-chip:hover {
+    @apply scale-[1.02];
+    border-color: var(--color-accent);
+  }
+}

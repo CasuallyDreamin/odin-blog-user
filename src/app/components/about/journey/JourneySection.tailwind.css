@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
 @layer components {
-  .journey-section {
-    @apply max-w-4xl mx-auto px-4 py-16 space-y-12;
-  }
 
   .section-title {
     @apply text-3xl md:text-4xl font-semibold mb-8;

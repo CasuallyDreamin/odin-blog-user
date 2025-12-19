@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@layer components {
+
+  /* Stack domains vertically with breathing room */
+  .skills-domains {
+    @apply space-y-16;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-semibold;
+    color: var(--color-primary);
+  }
+}

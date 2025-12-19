@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer components {
+  .category-block {
+    @apply space-y-3;
+  }
+
+  .category-title {
+    @apply text-sm uppercase tracking-widest;
+    font-family: var(--font-titles);
+    color: var(--color-text-muted);
+  }
+
+  .category-chips {
+    @apply flex flex-wrap gap-2;
+  }
+}
