@@ -20,7 +20,7 @@ export default function ThoughtsPage() {
           id: q.id,
           text: q.content,
           author: q.author || '— Unknown',
-          tags: q.tags?.map(t => t.name) || [],
+          categories: q.categories?.map(c => c.name) || [],
         }));
 
         setQuotes(data);
@@ -39,17 +39,17 @@ export default function ThoughtsPage() {
   if (error) return <div className="thoughts-error">{error}</div>;
 
   const grouped = quotes.reduce((acc, quote) => {
-    const category = quote.tags[0] || 'General';
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(quote);
+    const categoryName = quote.categories[0] || 'General';
+    if (!acc[categoryName]) acc[categoryName] = [];
+    acc[categoryName].push(quote);
     return acc;
   }, {});
 
-  const categories = Object.keys(grouped);
+  const categoryKeys = Object.keys(grouped);
 
   return (
     <section className="thoughts-page">
-      {categories.map((category, i) => (
+      {categoryKeys.map((category, i) => (
         <motion.div
           key={category}
           className="category-section"

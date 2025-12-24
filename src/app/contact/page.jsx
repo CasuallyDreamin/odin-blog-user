@@ -8,6 +8,7 @@ import '../../styles/pages/contact.tailwind.css';
 export default function ContactPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState(''); // Added
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,10 +24,11 @@ export default function ContactPage() {
     setStatus(null);
 
     try {
-      await api.post('/contact', { name, email, message });
+      await api.post('/contact', { name, email, subject, message }); // Added subject
       setStatus({ type: 'success', text: 'Message sent successfully!' });
       setName('');
       setEmail('');
+      setSubject('');
       setMessage('');
     } catch (err) {
       console.error(err);
@@ -39,53 +41,31 @@ export default function ContactPage() {
   return (
     <div className="contact-page-container max-w-2xl mx-auto px-4 py-12 flex flex-col gap-12">
       <div>
-        {/* Refactored: Text color uses var(--color-accent) */}
         <h1 className="text-3xl font-bold text-[var(--color-accent)] mb-4">Contact Me</h1>
-        
-        {/* Refactored: Text color uses var(--color-text-base) */}
         <p className="text-[var(--color-text-base)] mb-4">
           Got questions, ideas, or just want to say hi? Send me a message using the form below.
         </p>
         
-        {/* Refactored: Text color uses var(--color-text-muted) */}
         <p className="text-[var(--color-text-muted)]">
           I usually reply within a couple of days. You can also reach out via social media:
         </p>
         
         <div className="flex flex-col gap-3 mt-4">
-          <a
-            href="mailto:ysn.arambash@email.com"
-            target="_blank"
-            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
-          >
+          <a href="mailto:ysn.arambash@email.com" target="_blank" className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors">
             <Mail size={20} /> ysn.arambash@gmail.com
           </a>
-          <a
-            href="https://github.com/CasuallyDreamin"
-            target="_blank"
-            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
-          >
+          <a href="https://github.com/CasuallyDreamin" target="_blank" className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors">
             <Github size={20} /> @CasuallyDreamin
           </a>
-          <a
-            href="https://twitter.com/hithereitssin"
-            target="_blank"
-            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
-          >
+          <a href="https://twitter.com/hithereitssin" target="_blank" className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors">
             <X size={20} /> @hithereitssin
           </a>
-          <a
-            href="https://www.linkedin.com/in/yasin-aram-bash-0a333a284"
-            target="_blank"
-            className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors"
-          >
+          <a href="https://www.linkedin.com/in/yasin-aram-bash-0a333a284" target="_blank" className="flex items-center gap-2 text-[var(--color-text-base)] hover:text-[var(--color-accent)] transition-colors">
             <Linkedin size={20} /> @yasin-aram-bash
           </a>
         </div>
-
       </div>
 
-      {/* Contact Form */}
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -101,6 +81,13 @@ export default function ContactPage() {
           onChange={(e) => setEmail(e.target.value)}
           className="input-field"
         />
+        <input
+          type="text"
+          placeholder="Subject (Optional)"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className="input-field"
+        />
         <textarea
           placeholder="Your Message"
           value={message}
@@ -109,11 +96,7 @@ export default function ContactPage() {
         />
 
         {status && (
-          <p
-            className={`text-sm ${
-              status.type === 'success' ? 'text-green-400' : 'text-red-400'
-            }`}
-          >
+          <p className={`text-sm ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
             {status.text}
           </p>
         )}

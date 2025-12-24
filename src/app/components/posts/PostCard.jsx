@@ -1,5 +1,7 @@
 'use client';
+
 import '../../../styles/components/postcard.tailwind.css';
+
 export default function PostCard({ post, onClick }) {
   return (
     <li
@@ -12,7 +14,7 @@ export default function PostCard({ post, onClick }) {
         {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
       </p>
       <p className="post-preview">
-        {post.layout?.div?.p || 'No preview available'}
+        {post.excerpt || 'No preview available'}
       </p>
     </li>
   );

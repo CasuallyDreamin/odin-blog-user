@@ -21,9 +21,10 @@ export default function Article({ post }) {
         transition={{ delay: 0.2, duration: 0.6 }}
       >
         <div
-            className="prose dark:prose-invert max-w-none w-full mx-auto"
-            dangerouslySetInnerHTML={{ __html: post.content }} 
+          className="prose dark:prose-invert max-w-none w-full mx-auto whitespace-pre-wrap"
+          dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
       </motion.div>
     </article>
   );

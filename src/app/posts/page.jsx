@@ -6,28 +6,32 @@ import { motion } from 'framer-motion';
 import api from '../lib/api';
 import PostCard from '../components/posts/PostCard';
 import FilterBar from '../components/FilterBar';
-// Updated import path to centralized styles
 import '../../styles/pages/postpage.tailwind.css'; 
 
-/**
- * Utility function to extract a clean text excerpt from HTML content.
- */
-function getExcerptFromHtml(htmlContent, maxLength = 150) {
+function getExcerptFromHtml(htmlContent, maxLength = 180) {
   if (!htmlContent) return '...';
   
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = htmlContent;
   
-  const textContent = tempDiv.textContent || tempDiv.innerText || '';
+  const headings = Array.from(tempDiv.querySelectorAll('h1, h2, h3'))
+    .map(h => h.textContent.trim())
+    .filter(text => text.length > 0);
+
+  if (headings.length > 0) {
+    const stackedHeadings = headings.join(' • ');
+    return stackedHeadings.length > maxLength 
+      ? stackedHeadings.substring(0, maxLength).trim() + '...' 
+      : stackedHeadings;
+  }
   
+  const textContent = tempDiv.textContent || tempDiv.innerText || '';
   const trimmedText = textContent.trim();
   
-  if (trimmedText.length > maxLength) {
-    return trimmedText.substring(0, maxLength).trim() + '...';
-  }
-  return trimmedText;
+  return trimmedText.length > maxLength 
+    ? trimmedText.substring(0, maxLength).trim() + '...' 
+    : trimmedText;
 }
-
 
 export default function PostsPage() {
   const router = useRouter();
@@ -74,8 +78,7 @@ export default function PostsPage() {
             ...p,
             tags: (p.tags || []).map(t => (typeof t === 'string' ? t : t?.name || String(t))),
             categories: p.categories || [],
-            // Inject clean excerpt
-            excerpt: getExcerptFromHtml(p.content, 180),
+            excerpt: getExcerptFromHtml(p.content, 180), // Now contains stacked H1-H3
           }));
 
         if (!mounted) return;

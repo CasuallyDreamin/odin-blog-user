@@ -28,6 +28,13 @@ const milestones = [
     description: 'Explored Linux (Arch → Debian) for better workflow and server control. Developed web projects for private clients and collaborated with teams from university and other institutions. Also taught English (B2–C1) to sustain myself.',
     year: '2022-Present',
   },
+    {
+    title: 'Teaching & Knowledge Transfer',
+    description:
+      'I taught Python fundamentals through Django and REST APIs, guiding beginners from zero to building real systems. Teaching forced me to formalize my thinking, simplify complexity, and understand software as something meant to be shared—not hoarded.',
+    year: '2023–2024',
+  },
+
   {
     title: 'Current Ambition',
     description: 'I code to create and express ideas where traditional art fails me. My ultimate goal is to build my own game to share philosophy and gather a community of developers and gamers.',

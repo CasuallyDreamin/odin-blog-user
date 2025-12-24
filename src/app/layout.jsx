@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <SettingsProvider>
       <html lang="en">
+
         <body className="antialiased flex flex-col min-h-screen">
           <Navbar />
 
