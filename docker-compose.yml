@@ -1,0 +1,21 @@
+services:
+  user-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5000/api
+    container_name: sintopia_user
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - API_URL_INTERNAL=http://blog_api:5000/api
+    networks:
+      - blog-network
+
+networks:
+  blog-network:
+    external: true

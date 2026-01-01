@@ -1,8 +1,8 @@
 const path = require('path');
 
 module.exports = {
+  output: 'standalone',
   webpack(config, { dev, isServer }) {
-    // Find the rule handling css modules
     const cssModuleRule = config.module.rules.find(
       (r) => r.oneOf
     )?.oneOf.find(
