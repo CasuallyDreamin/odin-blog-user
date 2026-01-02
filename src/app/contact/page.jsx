@@ -8,7 +8,7 @@ import '../../styles/pages/contact.tailwind.css';
 export default function ContactPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState(''); // Added
+  const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);

@@ -1,13 +1,13 @@
-import { Mail, Github, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Github, TwitterIcon, Linkedin } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import './Footer.tailwind.css';
 
 const useSettings = () => {
   const [settings] = useState({ blogName: 'My Refactored Blog', socialLinks: {
-    twitter: '#',
-    linkedin: '#',
-    github: '#',
-    email: 'mailto:info@example.com',
+    twitter: 'https://x.com/hithereitssin',
+    linkedin: 'https://www.linkedin.com/in/yasin-aram-bash-0a333a284',
+    github: 'https://github.com/CasuallyDreamin',
+    email: 'ysn.arambash@gmail.com',
   }});
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +33,7 @@ export default function Footer() {
   const socialLinks = settings.socialLinks || {};
 
   const platformMap = [
-    { key: 'twitter', Icon: Twitter },
+    { key: 'twitter', Icon: TwitterIcon },
     { key: 'linkedin', Icon: Linkedin },
     { key: 'github', Icon: Github },
     { key: 'email', Icon: Mail },
