@@ -1,14 +1,14 @@
+'use client';
+
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import './FilterBar.tailwind.css';
 
-// Mock implementation for useSearchBar to resolve import error
 const useSearchBar = ({ initialValue, debounceMs, onSearchChange }) => {
   const [search, setSearch] = useState(initialValue);
   const debouncedValue = useRef(initialValue);
 
-  // Debouncing logic
   useEffect(() => {
     const handler = setTimeout(() => {
       if (search !== debouncedValue.current) {
@@ -27,6 +27,57 @@ const useSearchBar = ({ initialValue, debounceMs, onSearchChange }) => {
   };
 
   return { search, handleChange };
+};
+
+const Dropdown = ({ type, label, items = [], selected = [], onToggle, openMenu, setOpenMenu }) => {
+  const selectedCount = Array.isArray(selected) ? selected.length : 0;
+  const shownLabel = selectedCount > 0 ? `${label} (${selectedCount})` : label;
+
+  return (
+    <div className="relative filter-dropdown">
+      <button
+        className={`dropdown-btn ${openMenu === type ? 'active' : ''}`}
+        onClick={() => setOpenMenu((prev) => (prev === type ? null : type))}
+        aria-expanded={openMenu === type}
+        aria-haspopup="menu"
+        type="button"
+      >
+        <span className="dropdown-label">{shownLabel}</span>
+        <motion.div
+          animate={{ rotate: openMenu === type ? 180 : 0 }}
+          transition={{ duration: 0.18 }}
+          className="inline-flex items-center"
+        >
+          <ChevronDown className="w-4 h-4 ml-2" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {openMenu === type && (
+          <motion.div
+            className="dropdown-menu"
+            key={type}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18 }}
+            role="menu"
+          >
+            {items.map((item) => (
+              <label className="dropdown-item" key={item}>
+                <input
+                  type="checkbox"
+                  checked={selected.includes(item)}
+                  onChange={() => onToggle(item)}
+                />
+                <span className="dropdown-item-text">{item}</span>
+              </label>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export default function FilterBar({
@@ -83,59 +134,6 @@ export default function FilterBar({
     [selectedTypes, onTypeChange]
   );
 
-  const Dropdown = ({ type, label, items = [], selected = [], onToggle }) => {
-    const btnRef = useRef(null);
-    const selectedCount = Array.isArray(selected) ? selected.length : 0;
-    const shownLabel = selectedCount > 0 ? `${label} (${selectedCount})` : label;
-
-    return (
-      <div className="relative filter-dropdown">
-        <button
-          ref={btnRef}
-          className={`dropdown-btn ${openMenu === type ? 'active' : ''}`}
-          onClick={() => setOpenMenu((prev) => (prev === type ? null : type))}
-          aria-expanded={openMenu === type}
-          aria-haspopup="menu"
-          type="button"
-        >
-          <span className="dropdown-label">{shownLabel}</span>
-          <motion.div
-            animate={{ rotate: openMenu === type ? 180 : 0 }}
-            transition={{ duration: 0.18 }}
-            className="inline-flex items-center"
-          >
-            <ChevronDown className="w-4 h-4 ml-2" />
-          </motion.div>
-        </button>
-
-        <AnimatePresence>
-          {openMenu === type && (
-            <motion.div
-              className="dropdown-menu"
-              key={type}
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18 }}
-              role="menu"
-            >
-              {items.map((item) => (
-                <label className="dropdown-item" key={item}>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(item)}
-                    onChange={() => onToggle(item)}
-                  />
-                  <span className="dropdown-item-text">{item}</span>
-                </label>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
   return (
     <div className="filter-bar" ref={containerRef}>
       <input
@@ -154,6 +152,8 @@ export default function FilterBar({
           items={categories}
           selected={selectedCategories}
           onToggle={toggleCategory}
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
         />
         <Dropdown
           type="tags"
@@ -161,6 +161,8 @@ export default function FilterBar({
           items={tags}
           selected={selectedTags}
           onToggle={toggleTag}
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
         />
         <Dropdown
           type="types"
@@ -168,6 +170,8 @@ export default function FilterBar({
           items={types}
           selected={selectedTypes}
           onToggle={toggleType}
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
         />
       </div>
     </div>
