@@ -1,10 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  output: 'export',
-  images: {
-    unoptimized: true,
-  },
   webpack(config, { dev, isServer }) {
     const cssModuleRule = config.module.rules.find(
       (r) => r.oneOf
