@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import PostCard from './posts/PostCard';
+import PostCard from '../posts/PostCard';
 
 export default function ActivitySection({ posts = [], onPostClick }) {
   return (
