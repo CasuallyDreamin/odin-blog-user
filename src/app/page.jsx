@@ -1,10 +1,13 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import IntroSequence from './components/BootSequence';
-import PostCard from './components/posts/PostCard';
 import QuoteCard from './components/thoughts/QuoteCard';
+import HeroSection from './components/home/HeroSection';
+import SystemSnapshot from './components/home/SystemSnapshot';
+import ActivitySection from './components/home/ActivitySection';
+import DataSignal from './components/home/DataSignal';
 import api from './lib/api';
 import '../styles/pages/homepage.tailwind.css';
 
@@ -15,15 +18,12 @@ function getExcerptFromHtml(htmlContent, maxLength = 150) {
   tempDiv.innerHTML = htmlContent;
   
   const textContent = tempDiv.textContent || tempDiv.innerText || '';
-  
   const trimmedText = textContent.trim();
   
-  if (trimmedText.length > maxLength) {
-    return trimmedText.substring(0, maxLength).trim() + '...';
-  }
-  return trimmedText;
+  return trimmedText.length > maxLength 
+    ? trimmedText.substring(0, maxLength).trim() + '...'
+    : trimmedText;
 }
-
 
 export default function HomePage() {
   const router = useRouter();
@@ -47,18 +47,14 @@ export default function HomePage() {
 
   const fetchData = async () => {
     try {
-
       const resPosts = await api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc', search: searchTerm } });
-      
       const publishedPosts = (resPosts.data.posts || [])
         .filter(p => p.published)
         .map(p => ({
           ...p,
-
           excerpt: getExcerptFromHtml(p.content, 180)
         }));
-
-      setPosts(publishedPosts); 
+      setPosts(publishedPosts);
 
       const resSettings = await api.get('/settings');
       setQuote(resSettings.data.quote || '');
@@ -71,10 +67,8 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    if (!showIntro) {
-      fetchData();
-    }
-  }, [searchTerm]); 
+    if (!showIntro) fetchData();
+  }, [searchTerm]);
 
   const handleIntroComplete = async () => {
     sessionStorage.setItem('seenIntro', 'true');
@@ -83,7 +77,6 @@ export default function HomePage() {
   };
 
   const handlePostClick = (post) => router.push(`/posts/${post.slug}`);
-
   const filteredPosts = posts;
 
   if (showIntro) return <IntroSequence onComplete={handleIntroComplete} />;
@@ -91,25 +84,14 @@ export default function HomePage() {
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="homepage-container">
-      <h1 className="hero">SINTOPIA</h1>
-      <section className="hero-subtitle">
-        <p>Coding, writing, and chaos</p>
-      </section>
-
-      <section className="posts-grid-section">
-        <h2 className="section-title">Latest Posts</h2>
-        {filteredPosts.length === 0 ? (
-          <p className="text-[var(--color-text-muted)]">No posts match your search.</p>
-        ) : (
-          <ul className="posts-grid">
-            {filteredPosts.map(post => (
-              <PostCard key={post.id} post={post} onClick={() => handlePostClick(post)} />
-            ))}
-          </ul>
-        )}
-      </section>
-
+    <div className="homepage-container space-y-16">
+      <HeroSection />
+      <SystemSnapshot />
+      <ActivitySection posts={filteredPosts} onPostClick={handlePostClick} />
+      <DataSignal stats={[
+        { label: 'Posts', value: filteredPosts.length },
+        { label: 'Quote', value: quote ? 1 : 0 }
+      ]} />
       <QuoteCard quote={quote} />
     </div>
   );
