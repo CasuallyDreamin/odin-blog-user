@@ -3,18 +3,14 @@
 
 @import "tailwindcss";
 
-/* ------------------------------------------------ */
-/* --- COLOR VARIABLES (Dark Mode Default) --- */
-/* ------------------------------------------------ */
 @theme {
-  /* DARK MODE COLORS */
-  --color-primary: oklch(0.8 0.18 190);      /* Bright Cyan */
-  --color-bg: oklch(0.06 0.01 260);         /* Very Dark Background (bg-neutral-950 equivalent) */
-  --color-surface: #171717;                  /* Dark Surface for cards/containers */
-  --color-border: rgba(0,200,250, 0.5);      /* Cyan Border */
-  --color-text-base: oklch(0.9 0.01 260);    /* Light Text (text-neutral-100 equivalent) */
-  --color-text-muted: oklch(0.7 0.02 260);   /* Muted Text */
-  --color-accent: oklch(0.8 0.18 190);       /* Accent for primary elements */
+  --color-primary: oklch(0.8 0.18 190);
+  --color-bg: oklch(0.06 0.01 260);
+  --color-surface: #171717;
+  --color-border: rgba(0,200,250, 0.5);
+  --color-text-base: oklch(0.9 0.01 260);
+  --color-text-muted: oklch(0.7 0.02 260);
+  --color-accent: oklch(0.8 0.18 190);
   
   --font-header: 'Tron', sans-serif;
   --font-titles: 'Orbitron', sans-serif;
@@ -58,9 +54,21 @@ label{
   letter-spacing: 0.02em;
 }
 
+.hero-title {
+  font-family: var(--font-header);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+}
+
 @font-face {
   font-family: 'Tron';
   src: url("../public/fonts/Tr2n.ttf") format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
