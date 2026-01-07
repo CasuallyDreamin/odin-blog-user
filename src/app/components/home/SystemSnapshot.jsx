@@ -7,8 +7,8 @@ import api from '@/app/lib/api';
 export default function SystemSnapshot() {
   const [stats, setStats] = useState({
     totalPosts: 0,
-    totalCats: 0,
-    totalTags: 0,
+    totalProjects: 0,
+    totalQuotes: 0,
     health: { online: false, latency: 0 },
   });
   const [loading, setLoading] = useState(true);
@@ -32,8 +32,8 @@ export default function SystemSnapshot() {
 
         setStats({
           totalPosts: counts.posts ?? 0,
-          totalCats: counts.categories ?? 0,
-          totalTags: counts.tags ?? 0,
+          totalQuotes: counts.quotes ?? 0,
+          totalProjects: counts.projects ?? 0,
           health,
         });
       } catch (err) {
@@ -73,8 +73,8 @@ export default function SystemSnapshot() {
             ))
           : [
               { label: 'Total Posts', value: stats.totalPosts },
-              { label: 'Total Categories', value: stats.totalCats },
-              { label: 'Total Tags', value: stats.totalTags },
+              { label: 'Total Projects', value: stats.totalProjects },
+              { label: 'Total Quotes', value: stats.totalQuotes },
               { label: 'API Health', value: stats.health.online ? `Online (${stats.health.latency}ms)` : 'Offline' },
             ].map((item) => (
               <motion.div
