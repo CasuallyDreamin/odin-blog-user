@@ -18,8 +18,24 @@ export default function SystemSnapshot() {
     const fetchStats = async () => {
       try {
         setLoading(true);
+
         const res = await api.get('/stats');
-        setStats(res.data);
+        const counts = res.data;
+
+        let health = { online: false, latency: 0 };
+        try {
+          const start = Date.now();
+          await api.get('/');
+          const end = Date.now();
+          health = { online: true, latency: end - start };
+        } catch {}
+
+        setStats({
+          totalPosts: counts.posts ?? 0,
+          totalCats: counts.categories ?? 0,
+          totalTags: counts.tags ?? 0,
+          health,
+        });
       } catch (err) {
         console.error(err);
         setError('Failed to fetch system snapshot.');
@@ -68,7 +84,15 @@ export default function SystemSnapshot() {
                 transition={{ duration: 0.5 }}
                 className="p-4 bg-(--color-surface) border border-(--color-border) rounded-lg flex flex-col justify-center items-center text-center"
               >
-                <span className={`text-xl font-bold ${item.label === 'API Health' ? (stats.health.online ? 'text-green-400' : 'text-red-500') : 'text-(--color-primary)'}`}>
+                <span
+                  className={`text-xl font-bold ${
+                    item.label === 'API Health'
+                      ? stats.health.online
+                        ? 'text-green-400'
+                        : 'text-red-500'
+                      : 'text-(--color-primary)'
+                  }`}
+                >
                   {item.value}
                 </span>
                 <span className="text-xs mt-1 text-(--color-text-muted)">{item.label}</span>
