@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import api from '../lib/api';
+import api from '@/app/lib/api';
 
 export default function SystemSnapshot() {
   const [stats, setStats] = useState({
