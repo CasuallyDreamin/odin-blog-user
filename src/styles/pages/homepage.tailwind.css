@@ -6,42 +6,48 @@
   }
 
   .hero-section {
-    /* Refactored: Replaced hardcoded neutral colors with CSS variables for theme-aware gradient */
     @apply text-center space-y-4 py-20 rounded-lg relative overflow-hidden;
-    background: linear-gradient(to bottom, 
-      var(--color-surface), 
-      var(--color-bg) 50%, 
-      var(--color-surface)
+    background: radial-gradient(
+      120% 80% at 50% 20%,
+      oklch(0.12 0.04 230),
+      var(--color-bg) 60%
     );
-    border: 1px solid var(--color-border);
-    transition: background 0.3s, border-color 0.3s;
+    border: 1px solid oklch(0.65 0.08 200 / 0.15);
+    transition: background 0.6s ease, border-color 0.6s ease;
   }
 
   .hero-title {
-    @apply text-6xl font-bold tracking-tight;
-    color: var(--color-primary);
+    @apply text-6xl font-bold;
+    letter-spacing: 0.14em;
+    color: var(--color-text-base);
+    opacity: 0.92;
   }
 
   .hero-subtitle {
     @apply text-xl;
-    /* Refactored: Replaced text-gray-300 with theme variable */
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--color-text-muted);
   }
 
   .section-title {
     @apply text-3xl font-semibold mb-6;
+    letter-spacing: 0.08em;
     color: var(--color-primary);
   }
 
   .hero {
     font-family: var(--font-header);
-    @apply text-[8rem] font-extrabold inline-block text-center tracking-[0.08em];
-    color: var(--color-primary);
+    @apply text-[8rem] font-extrabold inline-block text-center;
+    letter-spacing: 0.12em;
+    color: var(--color-text-base);
+    opacity: 0.92;
   }
 }
 
 @media (max-width: 760px) {
   .hero {
-    transform: scale(0.5);
-  }  
+    font-size: 4rem;
+    letter-spacing: 0.18em;
+  }
 }
