@@ -27,8 +27,8 @@ function getExcerptFromHtml(htmlContent, maxLength = 150) {
 
 export default function HomePage() {
   const router = useRouter();
-  const [posts, setPosts] = useState([]);
   const [quote, setQuote] = useState('');
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showIntro, setShowIntro] = useState(false);

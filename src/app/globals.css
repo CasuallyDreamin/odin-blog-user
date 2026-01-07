@@ -4,13 +4,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: oklch(0.8 0.18 190);
-  --color-bg: oklch(0.06 0.01 260);
-  --color-surface: #171717;
-  --color-border: rgba(0,200,250, 0.5);
-  --color-text-base: oklch(0.9 0.01 260);
-  --color-text-muted: oklch(0.7 0.02 260);
-  --color-accent: oklch(0.8 0.18 190);
+  --color-primary: oklch(0.72 0.11 195);
+  --color-bg: oklch(0.055 0.02 255);
+  --color-surface: oklch(0.09 0.025 255);
+  --color-border: oklch(0.65 0.08 200 / 0.25);
+  --color-text-base: oklch(0.88 0.015 255);
+  --color-text-muted: oklch(0.62 0.02 255);
+  --color-accent: oklch(0.78 0.14 190);
+
   
   --font-header: 'Tron', sans-serif;
   --font-titles: 'Orbitron', sans-serif;
