@@ -54,17 +54,6 @@ label{
   letter-spacing: 0.02em;
 }
 
-.hero-title {
-  font-family: var(--font-header);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.hero-subtitle {
-  font-family: var(--font-body);
-  letter-spacing: 0.06em;
-}
-
 @font-face {
   font-family: 'Tron';
   src: url("../public/fonts/Tr2n.ttf") format('truetype');
