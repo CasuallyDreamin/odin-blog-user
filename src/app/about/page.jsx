@@ -6,7 +6,7 @@ import PhilosophySection from '../components/about/philosophy/PhilosophySection'
 import SkillsSection from '../components/about/skills/SkillsSection';
 import InterestsSection from '../components/about/interests/InterestsSection';
 import RouteTransition from '../components/RouteTransition';
-import useScrollHighlight from '@/hooks/useScrollHighlight';
+import useScrollHighlight from '@/app/hooks/useScrollHighlight';
 import '../../styles/pages/about.tailwind.css';
 
 export default function AboutPage() {
