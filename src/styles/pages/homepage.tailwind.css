@@ -6,48 +6,97 @@
   }
 
   .hero-section {
-    @apply text-center space-y-4 py-20 rounded-lg relative overflow-hidden;
-    background: radial-gradient(
-      120% 80% at 50% 20%,
-      oklch(0.12 0.04 230),
-      var(--color-bg) 60%
-    );
-    border: 1px solid oklch(0.65 0.08 200 / 0.15);
-    transition: background 0.6s ease, border-color 0.6s ease;
+    @apply relative text-center flex flex-col justify-center items-center space-y-6 py-32 px-4 rounded-xl overflow-hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 50px -12px oklch(0 0 0 / 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light .hero-section {
+    background: linear-gradient(to bottom, oklch(1 0 0) 0%, oklch(0.96 0.01 200) 100%);
+    border-bottom: 4px solid var(--color-primary);
+    box-shadow: 0 30px 60px -20px oklch(0.45 0.2 200 / 0.15);
   }
 
   .hero-title {
-    @apply text-6xl font-bold;
-    letter-spacing: 0.14em;
-    color: var(--color-text-base);
-    opacity: 0.92;
+    font-family: var(--font-header);
+    @apply text-[6rem] font-extrabold tracking-tighter text-(--color-primary) leading-[0.9];
+    filter: drop-shadow(4px 4px 0px oklch(var(--color-bg)));
   }
 
-  .hero-subtitle {
-    @apply text-xl;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+  .light .hero-title {
+    @apply tracking-tight;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: none;
+  }
+
+  .system-bar-wrapper {
+    @apply py-2 px-1;
+  }
+
+  .system-bar {
+    @apply flex items-center h-10 border border-(--color-border) bg-(--color-surface) rounded-sm overflow-hidden relative;
+    box-shadow: 0 4px 0px oklch(var(--color-border) / 0.5);
+  }
+
+  .light .system-bar {
+    background-color: oklch(0.98 0.005 200);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .system-bar::before {
+    content: "";
+    @apply absolute inset-0 pointer-events-none opacity-5;
+    background-image: repeating-linear-gradient(
+      0deg,
+      var(--color-text-base),
+      var(--color-text-base) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+
+  .system-bar.error {
+    @apply border-red-900 bg-red-950/20 text-red-500 font-mono text-[10px] justify-center;
+  }
+
+
+  .activity-label {
+    @apply text-[10px] font-mono uppercase tracking-[0.2em] mb-2 inline-block px-2 py-0.5 rounded;
+    background-color: var(--color-border);
     color: var(--color-text-muted);
+  }
+
+  .light .activity-label {
+    @apply bg-(--color-primary) text-(--color-surface) font-bold;
   }
 
   .section-title {
     @apply text-3xl font-semibold mb-6;
+    font-family: var(--font-titles);
     letter-spacing: 0.08em;
     color: var(--color-primary);
   }
 
-  .hero {
-    font-family: var(--font-header);
-    @apply text-[8rem] font-extrabold inline-block text-center;
-    letter-spacing: 0.12em;
-    color: var(--color-text-base);
-    opacity: 0.92;
+  .light .activity-section .section-title {
+    @apply tracking-normal;
+    background: none;
+    -webkit-text-fill-color: var(--color-text-base);
+    border-left: 4px solid var(--color-primary);
+    padding-left: 1rem;
+  }
+
+  .light .activity-section .bg-transparent {
+    background-color: oklch(0.99 0.005 200);
+    box-shadow: inset 0 0 40px oklch(0 0 0 / 0.02);
   }
 }
 
 @media (max-width: 760px) {
-  .hero {
-    font-size: 4rem;
-    letter-spacing: 0.18em;
+  .hero-title {
+    @apply text-[3rem];
   }
 }
