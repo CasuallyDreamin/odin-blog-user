@@ -39,7 +39,7 @@ export default function HomePage() {
       const [resPosts, resProjects, resSettings] = await Promise.all([
         api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc', search: searchTerm } }),
         api.get('/projects', { params: { limit: 1, sort: 'desc' } }),
-        api.get('/settings')
+        api.get('/quotes')
       ]);
 
       const allPosts = resPosts.data.posts || [];
