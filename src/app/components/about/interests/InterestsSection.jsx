@@ -1,3 +1,8 @@
+'use client';
+import './InterestsSection.tailwind.css';
+import DomainBlock from './DomainBlock';
+import { interests } from '@/app/lib/constants';
+
 export default function InterestsSection({ className }) {
   return (
     <section className={`interests-section ${className || ''}`}>
