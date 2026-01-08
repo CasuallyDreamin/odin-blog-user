@@ -17,11 +17,11 @@
   }
 
   .skills-section .domain-block {
-    @apply opacity-40 grayscale-[0.5] transition-all duration-700 blur-[0.5px];
+    @apply opacity-40 grayscale-[0.5] transition-all duration-700;
   }
 
   .active-scan .domain-block {
-    @apply opacity-100 grayscale-0 blur-0;
+    @apply opacity-100 grayscale-0;
   }
 
   .light .active-scan .domain-block {
