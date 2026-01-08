@@ -12,7 +12,7 @@
     transform: translateY(4px);
   }
 
-  .active-scan .skill-chip {
+  :where(.active-scan) .skill-chip {
     @apply opacity-100 translate-y-0;
     color: var(--color-text-base);
     border-color: var(--color-primary);
@@ -23,7 +23,8 @@
     box-shadow: 0 0 15px oklch(var(--color-accent) / 0.2);
   }
 
-  .light .active-scan .skill-chip {
+  :where(.active-scan).light .skill-chip,
+  .light :where(.active-scan) .skill-chip {
     @apply font-bold;
     background-color: var(--color-surface);
     box-shadow: 3px 3px 0px var(--color-border);
