@@ -5,7 +5,7 @@ import { skills } from '@/app/lib/constants';
 
 export default function SkillsSection({ className }) {
   return (
-    <section className={`skills-section ${className || ''}`}>
+    <section className={`skills-area-container ${className || ''}`}>
       <h2 className="section-title">Skills</h2>
 
       <div className="skills-domains">

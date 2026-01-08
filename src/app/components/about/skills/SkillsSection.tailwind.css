@@ -1,45 +1,46 @@
 @import "tailwindcss";
 
 @layer components {
-  .skills-section {
-    @apply w-full transition-all duration-700;
+  /* Unique class to avoid conflict */
+  .skills-area-container {
+    @apply w-full transition-all duration-700 border border-transparent rounded-xl;
+  }
+
+  /* ACTIVATION: The border lights up on the container itself */
+  .skills-area-container.active-scan {
+    border-color: var(--color-primary);
+    background-color: oklch(var(--color-primary) / 0.02);
+    box-shadow: 0 0 40px oklch(var(--color-primary) / 0.1);
   }
 
   .skills-domains {
     @apply space-y-16;
   }
 
-  .section-title {
+  .skills-area-container .section-title {
     @apply text-3xl md:text-4xl font-semibold mb-8 transition-all duration-500;
     color: var(--color-text-muted);
-    font-family: var(--font-titles);
   }
 
-  .skills-section .domain-block {
+  /* The content inside dims when not focused */
+  .skills-area-container .domain-block {
     @apply opacity-30 transition-all duration-1000 ease-in-out;
     filter: grayscale(1) blur(1px);
     transform: translateY(10px);
   }
 
-
-  .skills-section.active-scan .section-title {
+  /* ACTIVATION: Content focus */
+  .skills-area-container.active-scan .section-title {
     @apply translate-x-2 opacity-100;
     color: var(--color-primary);
   }
 
-  .skills-section.active-scan .domain-block {
+  .skills-area-container.active-scan .domain-block {
     @apply opacity-100 translate-y-0;
     filter: grayscale(0) blur(0);
   }
 
-  .skills-section.active-scan .domain-block:nth-child(1) { transition-delay: 0.1s; }
-  .skills-section.active-scan .domain-block:nth-child(2) { transition-delay: 0.3s; }
-  .skills-section.active-scan .domain-block:nth-child(3) { transition-delay: 0.5s; }
-
-  .light .skills-section.active-scan .domain-block {
-    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
-    background-size: 20px 20px;
-    border-color: var(--color-primary);
-    box-shadow: 6px 6px 0px var(--color-border);
-  }
+  .skills-area-container.active-scan .domain-block:nth-child(1) { transition-delay: 0.1s; }
+  .skills-area-container.active-scan .domain-block:nth-child(2) { transition-delay: 0.3s; }
+  .skills-area-container.active-scan .domain-block:nth-child(3) { transition-delay: 0.5s; }
 }

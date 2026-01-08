@@ -5,7 +5,7 @@ import { interests } from '@/app/lib/constants';
 
 export default function InterestsSection({ className }) {
   return (
-    <section className={`interests-section ${className || ''}`}>
+    <section className={`interests-area-container ${className || ''}`}>
       <h2 className="section-title">Interests</h2>
       <div className="interests-domains">
         {interests.map((domain, idx) => (
