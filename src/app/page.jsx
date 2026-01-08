@@ -36,7 +36,7 @@ export default function HomePage() {
 
   const fetchData = useCallback(async () => {
     try {
-      const [resPosts, resProjects, resSettings] = await Promise.all([
+      const [resPosts, resProjects, resQuotes] = await Promise.all([
         api.get('/posts', { params: { page: 1, limit: 10, sort: 'desc', search: searchTerm } }),
         api.get('/projects', { params: { limit: 1, sort: 'desc' } }),
         api.get('/quotes')
@@ -54,7 +54,12 @@ export default function HomePage() {
 
       setPostCount(publishedPosts.length);
       setLatestProject(resProjects.data.projects?.[0] || null);
-      setQuote(resSettings.data.quote || '');
+      
+      const quotesArray = resQuotes.data.quotes || [];
+      if (quotesArray.length > 0) {
+        setQuote(quotesArray[0].content);
+      }
+      
     } catch (err) {
       console.error(err);
       setError('Failed to load homepage data.');
