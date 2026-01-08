@@ -1,32 +1,45 @@
 @import "tailwindcss";
 
 @layer components {
+  .skills-section {
+    @apply w-full transition-all duration-700;
+  }
+
   .skills-domains {
     @apply space-y-16;
   }
 
   .section-title {
     @apply text-3xl md:text-4xl font-semibold mb-8 transition-all duration-500;
-    color: var(--color-primary);
+    color: var(--color-text-muted);
     font-family: var(--font-titles);
   }
 
-  .active-scan .section-title {
-    @apply translate-x-2;
-    text-shadow: 0 0 10px oklch(var(--color-primary) / 0.3);
-  }
-
   .skills-section .domain-block {
-    @apply opacity-40 grayscale-[0.5] transition-all duration-700;
+    @apply opacity-30 transition-all duration-1000 ease-in-out;
+    filter: grayscale(1) blur(1px);
+    transform: translateY(10px);
   }
 
-  .active-scan .domain-block {
-    @apply opacity-100 grayscale-0;
+
+  .skills-section.active-scan .section-title {
+    @apply translate-x-2 opacity-100;
+    color: var(--color-primary);
   }
 
-  .light .active-scan .domain-block {
+  .skills-section.active-scan .domain-block {
+    @apply opacity-100 translate-y-0;
+    filter: grayscale(0) blur(0);
+  }
+
+  .skills-section.active-scan .domain-block:nth-child(1) { transition-delay: 0.1s; }
+  .skills-section.active-scan .domain-block:nth-child(2) { transition-delay: 0.3s; }
+  .skills-section.active-scan .domain-block:nth-child(3) { transition-delay: 0.5s; }
+
+  .light .skills-section.active-scan .domain-block {
     background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
     background-size: 20px 20px;
     border-color: var(--color-primary);
+    box-shadow: 6px 6px 0px var(--color-border);
   }
 }
