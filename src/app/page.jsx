@@ -104,12 +104,6 @@ export default function HomePage() {
         onProjectClick={(project) => router.push(`/projects/${project.slug}`)}
       />
 
-      <DataSignal stats={[
-        { label: 'Network_Posts', value: postCount },
-        { label: 'Active_Quote', value: quote ? 1 : 0 }
-      ]} />
-      
-      <QuoteCard quote={quote} />
     </div>
   );
 }
