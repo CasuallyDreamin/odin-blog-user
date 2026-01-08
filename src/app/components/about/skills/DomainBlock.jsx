@@ -5,7 +5,10 @@ import './DomainBlock.tailwind.css';
 export default function DomainBlock({ domain }) {
   return (
     <section className="domain-block">
-      <h3 className="domain-title">{domain.domain}</h3>
+      <div className="domain-header">
+        <h3 className="domain-title">{domain.domain}</h3>
+        <div className="domain-status-line" />
+      </div>
 
       <div className="domain-categories">
         {domain.categories.map((category, idx) => (

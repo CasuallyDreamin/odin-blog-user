@@ -1,40 +1,81 @@
 @import "tailwindcss";
 
 @layer components {
+  .journey-section {
+    @apply relative;
+  }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-semibold mb-8;
+    @apply text-3xl md:text-4xl font-semibold mb-8 transition-colors duration-500;
     color: var(--color-primary);
   }
 
   .timeline {
-    @apply space-y-8;
+    @apply space-y-8 relative pl-8 md:pl-0;
+  }
+
+  .timeline::before {
+    content: "";
+    @apply absolute left-0 md:left-1/2 top-0 w-[2px] h-full bg-(--color-border) transition-all duration-1000 ease-in-out;
+    transform: translateX(-50%);
+  }
+
+  .active-scan .timeline::before {
+    @apply bg-(--color-primary);
+    box-shadow: 0 0 15px oklch(var(--color-primary) / 0.3);
   }
 
   .milestone {
-    @apply p-6 rounded-lg shadow-md;
+    @apply p-6 rounded-lg shadow-md relative transition-all duration-500 ease-in-out;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
-    transition: all 0.3s ease-in-out;
+    @apply md:w-[45%] md:odd:self-start md:even:self-end md:odd:mr-auto md:even:ml-auto;
   }
   
-  .milestone:hover {
+  .milestone:hover,
+  .active-scan .milestone {
     @apply shadow-xl;
-    border-color: var(--color-accent);
+    border-color: var(--color-primary);
+  }
+
+  .light .active-scan .milestone {
+    box-shadow: 6px 6px 0px var(--color-border);
+    transform: translate(-2px, -2px);
   }
 
   .milestone-title {
-    @apply text-2xl font-bold mb-2;
+    @apply text-2xl font-bold mb-2 transition-colors duration-500;
     color: var(--color-primary);
+    font-family: var(--font-titles);
+  }
+
+  .active-scan .milestone-title {
+    @apply text-(--color-accent);
   }
 
   .milestone-year {
     color: var(--color-text-muted);
-    @apply text-sm ml-2;
+    @apply text-sm ml-2 font-mono;
+  }
+
+  .active-scan .milestone-year {
+    @apply text-(--color-primary);
   }
 
   .milestone-desc {
     color: var(--color-text-base);
     @apply leading-relaxed;
+  }
+
+  .milestone::after {
+    content: "";
+    @apply absolute top-8 w-4 h-4 rounded-full border-2 border-(--color-border) bg-(--color-bg) transition-all duration-500 z-10;
+    @apply left-[-2.25rem] md:left-auto md:odd:right-[-12.5%] md:even:left-[-12.5%];
+  }
+
+  .active-scan .milestone::after {
+    @apply border-(--color-primary) bg-(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+    transform: scale(1.2);
   }
 }

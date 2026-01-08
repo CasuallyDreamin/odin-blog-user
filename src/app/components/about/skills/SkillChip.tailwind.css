@@ -2,15 +2,36 @@
 
 @layer components {
   .skill-chip {
-    @apply px-3 py-2 rounded-md text-sm md:text-base font-medium transition-all duration-200 ease-in-out cursor-default select-none;
+    @apply px-3 py-2 rounded-md text-sm md:text-base font-medium transition-all duration-500 ease-in-out cursor-default select-none;
     
     background-color: var(--color-surface);
-    color: var(--color-text-base);
+    color: var(--color-text-muted);
     border: 1px solid var(--color-border);
+    
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+
+  .active-scan .skill-chip {
+    @apply opacity-100 translate-y-0;
+    color: var(--color-text-base);
+    border-color: var(--color-primary);
   }
 
   .skill-chip:hover {
-    @apply scale-[1.02];
-    border-color: var(--color-accent);
+    @apply border-(--color-accent) z-10;
+    box-shadow: 0 0 15px oklch(var(--color-accent) / 0.2);
+  }
+
+  .light .active-scan .skill-chip {
+    @apply font-bold;
+    background-color: var(--color-surface);
+    box-shadow: 3px 3px 0px var(--color-border);
+    border-color: var(--color-primary);
+  }
+
+  .light .skill-chip:hover {
+    box-shadow: 5px 5px 0px var(--color-accent);
+    transform: translate(-2px, -2px);
   }
 }

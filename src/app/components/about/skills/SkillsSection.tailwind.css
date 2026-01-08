@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
 @layer components {
-
-  /* Stack domains vertically with breathing room */
   .skills-domains {
     @apply space-y-16;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-semibold;
+    @apply text-3xl md:text-4xl font-semibold mb-8 transition-all duration-500;
     color: var(--color-primary);
+    font-family: var(--font-titles);
+  }
+
+  .active-scan .section-title {
+    @apply translate-x-2;
+    text-shadow: 0 0 10px oklch(var(--color-primary) / 0.3);
+  }
+
+  .skills-section .domain-block {
+    @apply opacity-40 grayscale-[0.5] transition-all duration-700 blur-[0.5px];
+  }
+
+  .active-scan .domain-block {
+    @apply opacity-100 grayscale-0 blur-0;
+  }
+
+  .light .active-scan .domain-block {
+    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-color: var(--color-primary);
   }
 }

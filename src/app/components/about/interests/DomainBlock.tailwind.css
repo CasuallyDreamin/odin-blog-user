@@ -2,14 +2,23 @@
 
 @layer components {
   .domain-block {
-    @apply space-y-4;
+    @apply space-y-4 opacity-50 transition-opacity duration-700;
+  }
+
+  .active-scan .domain-block {
+    @apply opacity-100;
   }
 
   .domain-title {
-    @apply text-xl md:text-2xl font-semibold mb-2;
+    @apply text-xl md:text-2xl font-semibold mb-2 transition-all duration-500;
     font-family: var(--font-titles);
     letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  .active-scan .domain-title {
     color: var(--color-accent);
+    @apply translate-x-1;
   }
 
   .domain-items {
