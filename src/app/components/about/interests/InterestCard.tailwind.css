@@ -2,31 +2,26 @@
 
 @layer components {
   .interest-card {
-    @apply p-4 rounded-lg text-center font-semibold shadow-sm transition-all duration-500 ease-in-out cursor-pointer;
+    @apply px-3 py-2 rounded-md text-sm md:text-base font-medium
+           cursor-default select-none
+           transition-colors duration-200 ease-in-out;
+
     background-color: var(--color-surface);
     color: var(--color-text-muted);
     border: 1px solid var(--color-border);
-    transform: translateY(10px);
+
     opacity: 0;
   }
-  
-  .active-scan .interest-card {
-    @apply opacity-100 translate-y-0;
-    color: var(--color-text-base);
-  }
 
-  .interest-card:hover {
-    @apply shadow-md scale-[1.05] border-(--color-accent);
-    color: var(--color-accent);
+  .active-scan .interest-card {
+    @apply opacity-100;
+    color: var(--color-text-base);
+    border-color: var(--color-primary);
   }
 
   .light .active-scan .interest-card {
-    @apply bg-white;
-    box-shadow: 4px 4px 0px var(--color-border);
-  }
-
-  .light .interest-card:hover {
-    box-shadow: 6px 6px 0px var(--color-accent);
-    transform: translate(-2px, -2px);
+    @apply font-bold;
+    background-color: var(--color-surface);
+    box-shadow: 3px 3px 0px var(--color-border);
   }
 }

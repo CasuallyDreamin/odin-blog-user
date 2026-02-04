@@ -218,7 +218,6 @@ export const interests = [
     domain: 'Physical & Personal Mastery',
     items: [
       { name: 'Fitness & Training', notes: 'Strength, endurance, and self-discipline' },
-      { name: 'Martial Arts & Combat Systems', notes: 'Movement, strategy, and discipline' },
       { name: 'Biohacking & Self-Optimization', notes: 'Tracking, performance, and lifestyle experiments' },
     ],
   },

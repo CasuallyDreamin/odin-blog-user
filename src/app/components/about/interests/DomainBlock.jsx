@@ -9,7 +9,11 @@ export default function DomainBlock({ domain }) {
 
       <div className="domain-items">
         {domain.items.map((item, idx) => (
-          <InterestCard key={idx} interest={item} />
+          <InterestCard
+            key={idx}
+            interest={item}
+            delay={idx * 0.08}
+          />
         ))}
       </div>
     </section>
