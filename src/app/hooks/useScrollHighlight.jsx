@@ -6,7 +6,7 @@ export default function useScrollHighlight(selector = '.section-wrapper') {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '-25% 0px -25% 0px',
+      rootMargin: '0px 0px -10% 0px',
       threshold: 0.2,
     };
 
