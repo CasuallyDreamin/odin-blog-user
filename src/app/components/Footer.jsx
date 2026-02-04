@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './Footer.tailwind.css';
 
 const useSettings = () => {
-  const [settings] = useState({ blogName: 'My Refactored Blog', socialLinks: {
+  const [settings] = useState({ blogName: "CasuallyDreamin's Personal blog", socialLinks: {
     twitter: 'https://x.com/hithereitssin',
     linkedin: 'https://www.linkedin.com/in/yasin-aram-bash-0a333a284',
     github: 'https://github.com/CasuallyDreamin',
