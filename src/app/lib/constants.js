@@ -203,8 +203,10 @@ export const interests = [
   {
     domain: 'Music & Sound',
     items: [
-      { name: 'Metal Music', notes: 'Listening, analyzing, and drawing inspiration' },
-      { name: 'Experimental & Ambient Sounds', notes: 'Noise, industrial, dark ambient, composition' },
+      { name: 'Metal/Rock', notes: 'Listening, analyzing, and drawing inspiration' },
+      { name: 'Experimental/Ambient', notes: 'Noise, industrial, dark ambient, composition' },
+      { name: 'Indie/Alternative', notes: 'Noise, industrial, dark ambient, composition' },
+      { name: 'EDM/DnB', notes: 'Noise, industrial, dark ambient, composition' },
     ],
   },
   {
