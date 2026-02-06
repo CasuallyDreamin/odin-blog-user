@@ -7,7 +7,7 @@ export default function useScrollHighlight(selector = '.section-wrapper') {
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -10% 0px',
-      threshold: 0.2,
+      threshold: window.innerWidth < 768 ? 0.05 : 0.2,
     };
 
     const observer = new IntersectionObserver((entries) => {

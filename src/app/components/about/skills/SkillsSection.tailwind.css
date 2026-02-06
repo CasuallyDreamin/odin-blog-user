@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
 @layer components {
-  /* Unique class to avoid conflict */
   .skills-area-container {
     @apply w-full transition-all duration-700 border border-transparent rounded-xl;
   }
 
-  /* ACTIVATION: The border lights up on the container itself */
   .skills-area-container.active-scan {
     border-color: var(--color-primary);
     background-color: oklch(var(--color-primary) / 0.02);
@@ -22,14 +20,12 @@
     color: var(--color-text-muted);
   }
 
-  /* The content inside dims when not focused */
   .skills-area-container .domain-block {
     @apply opacity-30 transition-all duration-1000 ease-in-out;
     filter: grayscale(1) blur(1px);
     transform: translateY(10px);
   }
 
-  /* ACTIVATION: Content focus */
   .skills-area-container.active-scan .section-title {
     @apply translate-x-2 opacity-100;
     color: var(--color-primary);
