@@ -2,7 +2,7 @@
 
 @layer components {
   .interests-area-container {
-    @apply space-y-12 transition-all duration-700 border border-transparent rounded-xl;
+    @apply space-y-0 transition-all duration-700 border border-transparent rounded-xl p-0 m-0;
   }
 
   .interests-area-container.active-scan {
@@ -11,12 +11,18 @@
   }
 
   .interests-area-container .section-title {
-    @apply text-3xl md:text-4xl font-semibold mb-6 transition-colors duration-500;
+    @apply text-2xl sm:text-3xl md:text-4xl
+           font-semibold mb-6
+           whitespace-normal break-words
+           transition-colors duration-500;
     color: var(--color-text-muted);
   }
 
   .interests-area-container.active-scan .section-title {
-    @apply tracking-widest opacity-100;
+    @apply tracking-normal sm:tracking-wide md:tracking-widest opacity-100;
     color: var(--color-accent);
+  }
+  .interests-domains {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6;
   }
 }

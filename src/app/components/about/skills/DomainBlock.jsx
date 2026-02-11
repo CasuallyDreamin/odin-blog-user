@@ -7,8 +7,8 @@ export default function DomainBlock({ domain }) {
     <section className="domain-block">
       <div className="domain-header">
         <h3 className="domain-title">{domain.domain}</h3>
-        <div className="domain-status-line" />
       </div>
+      <div className="domain-status-line"></div>
 
       <div className="domain-categories">
         {domain.categories.map((category, idx) => (

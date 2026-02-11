@@ -2,7 +2,7 @@
 
 @layer components {
   .category-block {
-    @apply space-y-4;
+    @apply space-y-4 p-0 m-0;
   }
 
   .category-title {

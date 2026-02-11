@@ -5,7 +5,7 @@
     @apply relative text-center flex flex-col justify-center items-center space-y-6 py-32 px-4 rounded-xl overflow-hidden;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    box-shadow: 0 20px 50px -12px oklch(0 0 0 / 0.05);
+    box-shadow: 0 20px 50px -12px oklch(77.639% 0.07995 18.982 / 0.05);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -21,8 +21,12 @@
 
   .hero-title {
     font-family: var(--font-header);
-    @apply text-[6rem] font-extrabold tracking-tighter text-(--color-primary) leading-[0.9];
+    @apply text-[6rem] font-extrabold tracking-tighter text-(--color-primary) leading-[0.9] z-10;
     filter: drop-shadow(4px 4px 0px oklch(var(--color-bg)));
+  }
+
+  .hero-subtitle {
+    @apply z-10;
   }
 
   .light .hero-title {
@@ -33,25 +37,14 @@
     filter: none;
   }
 
-  .hero-background-animation {
-    @apply absolute inset-0 w-full h-full -z-10;
-    background-image: 
-      radial-gradient(var(--color-border) 1px, transparent 1px);
-    background-size: 30px 30px;
+  .hero-background-gif {
+    @apply absolute inset-0 w-full h-full object-cover;
+    z-index: 0;
     opacity: 0.3;
   }
 
-  .light .hero-background-animation {
-    opacity: 0.6;
-    background-image: 
-      linear-gradient(var(--color-border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: grid-drift 20s linear infinite;
+  .light .hero-background-gif {
+    opacity: 0.2;
+    mix-blend-mode: multiply;
   }
-}
-
-@keyframes grid-drift {
-  from { background-position: 0 0; }
-  to { background-position: 40px 40px; }
 }

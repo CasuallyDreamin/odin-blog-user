@@ -12,22 +12,26 @@
   }
 
   .skills-domains {
-    @apply space-y-16;
+    @apply p-0 grid grid-cols-1 gap-y-20 gap-x-0 ;
   }
+
 
   .skills-area-container .section-title {
-    @apply text-3xl md:text-4xl font-semibold mb-8 transition-all duration-500;
+    @apply text-2xl sm:text-3xl md:text-4xl
+           font-semibold mb-8
+           whitespace-normal break-words
+           transition-all duration-500;
     color: var(--color-text-muted);
-  }
+  } 
 
   .skills-area-container .domain-block {
-    @apply opacity-30 transition-all duration-1000 ease-in-out;
+    @apply opacity-30 transition-all duration-1000 ease-in-out p-0;
     filter: grayscale(1) blur(1px);
     transform: translateY(10px);
   }
 
   .skills-area-container.active-scan .section-title {
-    @apply translate-x-2 opacity-100;
+    @apply opacity-100 translate-x-0 md:translate-x-2;
     color: var(--color-primary);
   }
 

@@ -2,16 +2,17 @@
 
 @layer components {
   .domain-block {
-    @apply space-y-8 transition-all duration-700;
+    @apply space-y-0 transition-all duration-700 p-0 m-0;
   }
 
   .domain-header {
-    @apply flex items-center gap-4 mb-6;
+    @apply flex items-center mb-6 min-w-0 gap-0 m-0 p-0;
   }
 
   .domain-title {
-    @apply text-xl font-bold uppercase tracking-[0.2em] whitespace-nowrap;
+    @apply text-xl font-bold uppercase tracking-[0.2em] min-w-0 p-0 m-0;
     color: var(--color-text-muted);
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
     font-family: var(--font-titles);
     transition: color 0.5s ease;
   }
@@ -30,12 +31,12 @@
   }
 
   .domain-categories {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8;
+    @apply grid grid-cols-1 md:grid-cols-2 gap-y-4;
   }
 
 
   .light .active-scan .domain-block {
-    @apply relative;
+    @apply relative p-0;
     background-image: linear-gradient(var(--color-border) 1px, transparent 1px),
                       linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
     background-size: 40px 40px;

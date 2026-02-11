@@ -1,32 +1,48 @@
 @import "tailwindcss";
 
 @layer components {
-  .hero-section {
-    @apply text-center py-12 px-4 rounded-lg relative overflow-hidden;
-    background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
+  .hero-field {
+    @apply relative h-[60vh] overflow-hidden;
+    padding: 3rem 2.5rem;
+    background-color: var(--color-bg);
+  }
+
+  .hero-bg {
+    @apply absolute inset-0 w-full h-full object-cover;
+    opacity: 0.15;
+  }
+
+
+  .schematic-a {
+    top: 10%;
+    left: 5%;
+    width: 420px;
+  }
+
+  .schematic-b {
+    bottom: 8%;
+    right: 6%;
+    @apply absolute text-xs tracking-widest opacity-40;
+    font-family: monospace;
+    color: var(--color-text-muted);
+  }
+
+  .hero-core {
+    @apply relative z-10 max-w-3xl;
   }
 
   .hero-title {
-    @apply text-5xl md:text-6xl font-bold mb-30 leading-tight;
-    color: var(--color-primary);
     font-family: var(--font-titles);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.05;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
   }
 
   .hero-subtitle {
-    @apply text-2xl md:text-xl mb-8 max-w-3xl mx-auto;
-    color: var(--color-secondary);
     font-family: var(--font-body);
-  }
-
-  .hero-text {
-    @apply text-xl md:text-xl max-w-3xl mx-auto mb-6 leading-relaxed;
-    color: var(--color-text);
-    font-family: var(--font-body);
-  }
-
-  .hero-anchor {
-    @apply text-lg md:text-lg mt-8 opacity-70;
-    color: var(--color-secondary);
-    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--color-text-muted);
+    max-width: 38ch;
   }
 }
